@@ -12,6 +12,8 @@ let isDrag = false;
 // an array to contain all the blocks created
 let blocks = [];
 let murmel;
+let trampolineA;
+let trampolinB;
 
 let canvasElem;
 let off = { x: 0, y: 0 };
@@ -35,7 +37,7 @@ function setup() {
 	engine = Engine.create();
 	world = engine.world;
 
-	new BlocksFromSVG(world, "Achterbahn-rot.svg", blocks, { isStatic: true });
+	new BlocksFromSVG(world, "Achterbahn.svg", blocks, { isStatic: true });
 	//new BlocksFromSVG(world, "Heißluftballon.svg", blocks, { isStatic: true });
 
 	// the ball has a label and can react on collisions
@@ -80,6 +82,17 @@ function setup() {
 				frictionAir: 0.01,
 			}
 		)
+	);
+
+	trampolineA = new Block(
+		world,
+		{ x: 1380, y: 650, w: 120, h: 20, color: "red" },
+		{ isStatic: true, restitution: 1.3 }
+	);
+	trampolineB = new Block(
+		world,
+		{ x: 1240, y: 680, w: 80, h: 20, color: "red" },
+		{ isStatic: true, restitution: 1.3 }
 	);
 
 	// add a mouse so that we can manipulate Matter objects
@@ -171,4 +184,6 @@ function draw() {
 	// animate attracted blocks
 	blocks.forEach((block) => block.draw());
 	mouse.draw();
+	trampolineA.draw();
+	trampolineB.draw();
 }
