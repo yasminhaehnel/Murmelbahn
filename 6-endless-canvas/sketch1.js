@@ -16,7 +16,11 @@ let murmel;
 let canvasElem;
 let off = { x: 0, y: 0 };
 
-let ballonImg;
+let Heißluftballon;
+
+function preload() {
+	Heißluftballon = loadImage("Heißluftballon.png");
+}
 
 // das ist die Dimension des kompletten Levels
 const dim = { w: 3240, h: 720 };
@@ -31,35 +35,8 @@ function setup() {
 	engine = Engine.create();
 	world = engine.world;
 
-	new BlocksFromSVG(world, "Achterbahn6.svg", blocks, { isStatic: true });
+	new BlocksFromSVG(world, "Achterbahn-rot.svg", blocks, { isStatic: true });
 	//new BlocksFromSVG(world, "Heißluftballon.svg", blocks, { isStatic: true });
-
-	// the box triggers a function on collisions
-	blocks.push(
-		new BlockCore(
-			world,
-			{
-				x: 228,
-				y: 228,
-				w: 50,
-				h: 30,
-				color: "green",
-				trigger: (ball, block) => {
-					ball.attributes.color = color(
-						Math.random() * 256,
-						Math.random() * 256,
-						Math.random() * 256
-					);
-				},
-			},
-			{
-				isStatic: true,
-				density: 0.05,
-				restitution: 0.5,
-				frictionAir: 0.01,
-			}
-		)
-	);
 
 	// the ball has a label and can react on collisions
 	murmel = new Ball(
@@ -74,6 +51,36 @@ function setup() {
 		}
 	);
 	blocks.push(murmel);
+
+	// the box triggers a function on collisions
+	blocks.push(
+		new Block(
+			world,
+			{
+				x: 250,
+				y: 250,
+				w: 50,
+				h: 30,
+				color: "blue",
+				trigger: (ball, block) => {
+					ball.attributes.color = color(
+						Math.random() * 256,
+						Math.random() * 256,
+						Math.random() * 256
+					);
+				},
+				scale: 0.3,
+				offset: { x: 0, y: -80 },
+				image: Heißluftballon,
+			},
+			{
+				isStatic: true,
+				density: 0.1,
+				restitution: 0.2,
+				frictionAir: 0.01,
+			}
+		)
+	);
 
 	// add a mouse so that we can manipulate Matter objects
 	mouse = new Mouse(engine, canvas, { stroke: "blue", strokeWeight: 3 });
