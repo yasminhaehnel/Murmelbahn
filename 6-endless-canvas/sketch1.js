@@ -83,6 +83,28 @@ function setup() {
 			}
 		)
 	);
+  blocks.push(
+    new BlockCore(
+      world,
+      {
+        x: 400,
+        y: 400,
+        w: 60,
+        h: 60,
+        color: "blue",
+        trigger: (ball, block) => {
+          ball.attributes.color = color(
+            Math.random() * 256,
+            Math.random() * 256,
+            Math.random() * 256
+          );
+          Matter.Body.setDensity(murmel.body, 0.019);
+        },
+      },
+      { isStatic: true, isSensor: true, density: 0.05, restitution: 0.5, frictionAir: 0.01 }
+    )
+  );
+  
 
 	trampolineA = new Block(
 		world,
