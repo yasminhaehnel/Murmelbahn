@@ -70,6 +70,7 @@ function setup() {
 						Math.random() * 256,
 						Math.random() * 256
 					);
+				Matter.Body.applyForce(ball.body, ball.body.position, {x: 0.2, y: -0.3}); //hier wird murmel geschubst
 				},
 				scale: 0.3,
 				offset: { x: 0, y: -80 },
