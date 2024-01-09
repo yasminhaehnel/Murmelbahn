@@ -70,7 +70,7 @@ function setup() {
 						Math.random() * 256,
 						Math.random() * 256
 					);
-				Matter.Body.applyForce(ball.body, ball.body.position, {x: 0.2, y: -0.3}); //hier wird murmel geschubst
+				
 				},
 				scale: 0.3,
 				offset: { x: 0, y: -80 },
@@ -84,11 +84,13 @@ function setup() {
 			}
 		)
 	);
-	blocks.push(
+
+	//Block mit Murmel wird schwerer
+	blocks.push( 
 		new BlockCore(
 			world,
 			{
-				x: 400,
+				x: 500,
 				y: 400,
 				w: 60,
 				h: 60,
@@ -99,6 +101,7 @@ function setup() {
 						Math.random() * 256,
 						Math.random() * 256
 					);
+					
 					Matter.Body.setDensity(murmel.body, 0.019);
 				},
 			},
@@ -111,6 +114,30 @@ function setup() {
 			}
 		)
 	);
+
+	  // the box triggers a function on collisions, hier wird die Murmel geschubst und erstellt
+	  blocks.push(
+		new BlockCore(
+		  world,
+		  {
+			x: 800,
+			y: 550,
+			w: 60,
+			h: 60,
+			color: "green",
+			trigger: (ball, block) => {
+			  ball.attributes.color = color(
+				Math.random() * 256,
+				Math.random() * 256,
+				Math.random() * 256
+			  );
+			  Matter.Body.applyForce(ball.body, ball.body.position, {x: 0.4, y: -0.4}); //hier wird die Murmel geschubst
+			},
+		  },
+		  { isStatic: true, density: 0.05, restitution: 0.5, frictionAir: 0.01 }
+		)
+	  );
+	
 
 	trampolineA = new Block(
 		world,
