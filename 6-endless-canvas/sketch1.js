@@ -19,9 +19,11 @@ let canvasElem;
 let off = { x: 0, y: 0 };
 
 let Heißluftballon;
+let Mond;
 
 function preload() {
 	Heißluftballon = loadImage("Heißluftballon.png");
+	Mond = loadImage("Mond.png");
 }
 
 // das ist die Dimension des kompletten Levels
@@ -43,7 +45,7 @@ function setup() {
 	// the ball has a label and can react on collisions
 	murmel = new Ball(
 		world,
-		{ x: 235, y: 100, r: 25, color: "Black" },
+		{ x: 235, y: 100, r: 40, image: Mond },
 		{
 			label: "Murmel",
 			density: 0.005,
@@ -63,15 +65,7 @@ function setup() {
 				y: 250,
 				w: 50,
 				h: 30,
-				color: "blue",
-				trigger: (ball, block) => {
-					ball.attributes.color = color(
-						Math.random() * 256,
-						Math.random() * 256,
-						Math.random() * 256
-					);
-				
-				},
+				//trigger: (ball, block) => {},
 				scale: 0.3,
 				offset: { x: 0, y: -80 },
 				image: Heißluftballon,
@@ -86,7 +80,7 @@ function setup() {
 	);
 
 	//Block mit Murmel wird schwerer
-	blocks.push( 
+	blocks.push(
 		new BlockCore(
 			world,
 			{
@@ -96,12 +90,12 @@ function setup() {
 				h: 60,
 				color: "blue",
 				trigger: (ball, block) => {
-					ball.attributes.color = color(
-						Math.random() * 256,
-						Math.random() * 256,
-						Math.random() * 256
-					);
-					
+					// ball.attributes.color = color(
+					// 	Math.random() * 256,
+					// 	Math.random() * 256,
+					// 	Math.random() * 256
+					// );
+
 					Matter.Body.setDensity(murmel.body, 0.019);
 				},
 			},
@@ -115,29 +109,36 @@ function setup() {
 		)
 	);
 
-	  // the box triggers a function on collisions, hier wird die Murmel geschubst und erstellt
-	  blocks.push(
+	// the box triggers a function on collisions, hier wird die Murmel geschubst und erstellt
+	blocks.push(
 		new BlockCore(
-		  world,
-		  {
-			x: 800,
-			y: 550,
-			w: 60,
-			h: 60,
-			color: "green",
-			trigger: (ball, block) => {
-			  ball.attributes.color = color(
-				Math.random() * 256,
-				Math.random() * 256,
-				Math.random() * 256
-			  );
-			  Matter.Body.applyForce(ball.body, ball.body.position, {x: 0.4, y: -0.4}); //hier wird die Murmel geschubst
+			world,
+			{
+				x: 800,
+				y: 550,
+				w: 60,
+				h: 60,
+				color: "green",
+				trigger: (ball, block) => {
+					// ball.attributes.color = color(
+					// 	Math.random() * 256,
+					// 	Math.random() * 256,
+					// 	Math.random() * 256
+					// );
+					Matter.Body.applyForce(ball.body, ball.body.position, {
+						x: 0.4,
+						y: -0.4,
+					}); //hier wird die Murmel geschubst
+				},
 			},
-		  },
-		  { isStatic: true, density: 0.05, restitution: 0.5, frictionAir: 0.01 }
+			{
+				isStatic: true,
+				density: 0.05,
+				restitution: 0.5,
+				frictionAir: 0.01,
+			}
 		)
-	  );
-	
+	);
 
 	trampolineA = new Block(
 		world,
