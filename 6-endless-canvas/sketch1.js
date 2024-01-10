@@ -373,7 +373,7 @@ function draw() {
 	trampolineA.draw();
 	trampolineB.draw();
 
-	hgWolken.position(off.x * 0.03, 0);
+	hgWolken.position(off.x * 0, 0);
 	hgBerge.position(off.x * 0, 0);
 	vg.position(off.x * -0.2, 0);
 
