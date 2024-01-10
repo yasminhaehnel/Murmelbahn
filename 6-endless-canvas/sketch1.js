@@ -21,6 +21,7 @@ let off = { x: 0, y: 0 };
 
 let Heißluftballon;
 let Mond;
+let Stern;
 let sparkleTrail = [];
 let swarmHistory = [];
 
@@ -32,6 +33,7 @@ function preload() {
 	backgroundSound = loadSound("glitz.Sound.mp3");
 	Heißluftballon = loadImage("Heißluftballon.png");
 	Mond = loadImage("Mond-groß.png");
+	Stern = loadImage("Stern.png");
 }
 
 // das ist die Dimension des kompletten Levels
@@ -50,6 +52,7 @@ function setup() {
 	new BlocksFromSVG(world, "Achterbahn-Strecke.svg", blocks, {
 		isStatic: true,
 	});
+	console.log("OK");
 	//new BlocksFromSVG(world, "Heißluftballon.svg", blocks, { isStatic: true });
 
 	// the ball has a label and can react on collisions
@@ -125,18 +128,20 @@ function setup() {
 
 	// the box triggers a function on collisions, hier wird die Murmel geschubst und erstellt
 	blocks.push(
-		new BlockCore(
+		new Block(
 			world,
 			{
-				x: 2450,
-				y: 450,
+				x: 2270,
+				y: 420,
 				w: 60,
 				h: 60,
-				color: "green",
+				image: Stern,
+				scale: 0.3,
+
 				trigger: (ball, block) => {
 					Matter.Body.applyForce(ball.body, ball.body.position, {
-						x: 0.4,
-						y: -0.4,
+						x: 2,
+						y: 0.0,
 					}); //hier wird die Murmel geschubst
 					const velocityMultiplier = 2; // Du kannst den Multiplikator anpassen, um die Geschwindigkeit zu ändern
 					const currentVelocity = ball.body.velocity;
@@ -148,9 +153,10 @@ function setup() {
 			},
 			{
 				isStatic: true,
-				density: 0.05,
-				restitution: 0.5,
-				frictionAir: 0.01,
+				isSensor: true,
+				// density: 0.05,
+				// restitution: 0.5,
+				// frictionAir: 0.01,
 			}
 		)
 	);
