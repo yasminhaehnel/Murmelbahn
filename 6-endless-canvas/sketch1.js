@@ -13,8 +13,10 @@ let isDrag = false;
 // an array to contain all the blocks created
 let blocks = [];
 let murmel;
-let trampolineA;
+let trampolinA;
 let trampolinB;
+let trampolinC;
+let trampolinD;
 
 let canvasElem;
 let off = { x: 0, y: 0 };
@@ -34,6 +36,8 @@ function preload() {
 	Heißluftballon = loadImage("Heißluftballon.png");
 	Mond = loadImage("Mond-groß.png");
 	Stern = loadImage("Stern.png");
+	Pilz1 = loadImage("Pilz1.png");
+	Pilz2 = loadImage("Pilz2.png");
 }
 
 // das ist die Dimension des kompletten Levels
@@ -161,14 +165,56 @@ function setup() {
 		)
 	);
 
-	trampolineA = new Block(
+	trampolinA = new Block(
 		world,
-		{ x: 1380, y: 650, w: 120, h: 20, color: "red" },
+		{
+			x: 1450,
+			y: 535,
+			w: 165,
+			h: 19,
+			color: "green",
+			offset: { x: 0, y: 47 },
+			image: Pilz1,
+		},
 		{ isStatic: true, restitution: 1.3 }
 	);
-	trampolineB = new Block(
+	trampolinB = new Block(
 		world,
-		{ x: 1240, y: 680, w: 80, h: 20, color: "red" },
+		{
+			x: 1260,
+			y: 580,
+			w: 100,
+			h: 18,
+			color: "red",
+			offset: { x: 0, y: 27 },
+			image: Pilz2,
+		},
+		{ isStatic: true, restitution: 1.3 }
+	);
+	trampolinC = new Block(
+		world,
+		{
+			x: 3380,
+			y: 530,
+			w: 100,
+			h: 17,
+			color: "orange",
+			offset: { x: 0, y: 26 },
+			image: Pilz2,
+		},
+		{ isStatic: true, restitution: 1.3 }
+	);
+	trampolinD = new Block(
+		world,
+		{
+			x: 3200,
+			y: 500,
+			w: 165,
+			h: 20,
+			color: "blue",
+			offset: { x: 0, y: 47 },
+			image: Pilz1,
+		},
 		{ isStatic: true, restitution: 1.3 }
 	);
 
@@ -370,8 +416,10 @@ function draw() {
 	// animate attracted blocks
 	blocks.forEach((block) => block.draw());
 	mouse.draw();
-	trampolineA.draw();
-	trampolineB.draw();
+	trampolinA.draw();
+	trampolinB.draw();
+	trampolinC.draw();
+	trampolinD.draw();
 
 	hgWolken.position(off.x * 0, 0);
 	hgBerge.position(off.x * 0, 0);
