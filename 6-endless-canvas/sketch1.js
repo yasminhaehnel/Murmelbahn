@@ -235,7 +235,7 @@ function keyPressed(event) {
 
 function drawSparkle(x, y){
 	const sparkleSize = 2;
-	const alphaValue = 150;
+	const alphaValue = 200;
 
 	for (let i = 0; i < sparkleTrail.length; i++){
 		fill (255, 255, 255, alphaValue);
@@ -244,7 +244,7 @@ function drawSparkle(x, y){
 	
 	}
 	sparkleTrail.push({x: x, y: y});
-	if (sparkleTrail.length > 50){
+	if (sparkleTrail.length > 60){
 		sparkleTrail.splice (0, 1);
 	}
 }
@@ -254,17 +254,12 @@ function drawSparkle(x, y){
 function draw() {
 	clear();
 
+
 	// position canvas and translate coordinates
 	scrollEndless(murmel.body.position);
-
-	// animate attracted blocks
-	blocks.forEach((block) => block.draw());
-	mouse.draw();
-	trampolineA.draw();
-	trampolineB.draw();
-
-	 let newX = murmel.body.position.x + random (-5, 5); //Verschiebung in x-Richtung
-	 let newY = murmel.body.position.y + random (-5, 5); //Verschiebung in y-Richtung
+	 
+	let newX = murmel.body.position.x + random (-25, 25); //Verschiebung in x-Richtung
+	 let newY = murmel.body.position.y + random (-40, 30); //Verschiebung in y-Richtung
 
 	 swarmHistory.push ({ x: newX, y: newY }); 
 
@@ -278,6 +273,15 @@ function draw() {
 		swarmHistory.splice (0, 1); 
 	 }
 	 drawSparkle (murmel.body.position.x, murmel.body.position.y);
+
+
+	// animate attracted blocks
+	blocks.forEach((block) => block.draw());
+	mouse.draw();
+	trampolineA.draw();
+	trampolineB.draw();
+
+	 
 	
 }
 	
