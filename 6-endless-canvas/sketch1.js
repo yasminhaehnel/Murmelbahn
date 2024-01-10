@@ -20,8 +20,6 @@ let off = { x: 0, y: 0 };
 
 let Heißluftballon;
 let Mond;
-let sparkleTrail = [];
-let swarmHistory = [];
 
 function preload() {
 	Heißluftballon = loadImage("Heißluftballon.png");
@@ -41,9 +39,7 @@ function setup() {
 	engine = Engine.create();
 	world = engine.world;
 
-	new BlocksFromSVG(world, "Achterbahn-Strecke.svg", blocks, {
-		isStatic: true,
-	});
+	new BlocksFromSVG(world, "Achterbahn-Strecke.svg", blocks, { isStatic: true });
 	//new BlocksFromSVG(world, "Heißluftballon.svg", blocks, { isStatic: true });
 
 	// the ball has a label and can react on collisions
@@ -56,6 +52,10 @@ function setup() {
 			restitution: 0.25,
 			friction: 0.5,
 			frictionAir: 0.0,
+			collisionFilter: {
+				category: 0b0001,
+				mask: 0b0001
+			}
 		}
 	);
 	blocks.push(murmel);
@@ -88,8 +88,8 @@ function setup() {
 		new BlockCore(
 			world,
 			{
-				x: 800,
-				y: 800,
+				x: 500,
+				y: 400,
 				w: 60,
 				h: 60,
 				color: "blue",
@@ -118,8 +118,8 @@ function setup() {
 		new BlockCore(
 			world,
 			{
-				x: 400,
-				y: 350,
+				x: 800,
+				y: 550,
 				w: 60,
 				h: 60,
 				color: "green",
@@ -192,8 +192,52 @@ function setup() {
 		});
 	});
 
+	//Looping linke seite 
+	const openLeft = new PolygonFromSVG(
+		world, {
+		fromFile: 'Achterbahn-Looping-links.svg',
+		color: '#638781',
+		stroke: '#638781', // hides the gaps
+		xweight: 0.0
+	}, {
+		isStatic: true, friction: 0.0,
+		collisionFilter: {
+			category: 0b0010
+		}
+	});
+	blocks.push(openLeft);
+	console.log(openLeft)
+
+	//rechte seite Looping
+	const openRight = new PolygonFromSVG(
+		world, {
+		fromFile: 'Achterbahn-Looping-rechts.svg',
+		color: '#638781',
+		stroke: '#638781', // hides the gaps
+	}, {
+		isStatic: true, friction: 0.0,
+		collisionFilter: {
+			category: 0b0001
+		}
+	});
+	blocks.push(openRight);
+
+	// the box closes openLeft and opens openRight, hier wird getriggert
+	blocks.push(new BlockCore(world,
+		{
+			x: 1800, y: 400, w: 600, h: 50, color: 'yellow',
+			trigger: (ball, block) => {
+				ball.attributes.color = color(Math.random() * 256, Math.random() * 256, Math.random() * 256);
+				openLeft.body.collisionFilter.category = 0b0001;
+				openRight.body.collisionFilter.category = 0b0010;
+			}
+		},
+		{ isStatic: true, isSensor: true }
+	));
+
 	// run the engine
 	Runner.run(engine);
+
 }
 
 function scrollEndless(point) {
@@ -235,42 +279,11 @@ function keyPressed(event) {
 	}
 }
 
-function drawSparkle(x, y) {
-	const sparkleSize = 2;
-	const alphaValue = 200;
-
-	for (let i = 0; i < sparkleTrail.length; i++) {
-		fill(255, 255, 255, alphaValue);
-		noStroke();
-		ellipse(sparkleTrail[i].x, sparkleTrail[i].y, sparkleSize, sparkleSize);
-	}
-	sparkleTrail.push({ x: x, y: y });
-	if (sparkleTrail.length > 60) {
-		sparkleTrail.splice(0, 1);
-	}
-}
-
 function draw() {
 	clear();
 
 	// position canvas and translate coordinates
 	scrollEndless(murmel.body.position);
-
-	let newX = murmel.body.position.x + random(-25, 25); //Verschiebung in x-Richtung
-	let newY = murmel.body.position.y + random(-40, 30); //Verschiebung in y-Richtung
-
-	swarmHistory.push({ x: newX, y: newY });
-
-	for (let i = 0; i < swarmHistory.length; i++) {
-		let sparkleX = swarmHistory[i].x;
-		let sparkleY = swarmHistory[i].y;
-
-		drawSparkle(sparkleX, sparkleY);
-	}
-	if (swarmHistory.length > 5) {
-		swarmHistory.splice(0, 1);
-	}
-	drawSparkle(murmel.body.position.x, murmel.body.position.y);
 
 	// animate attracted blocks
 	blocks.forEach((block) => block.draw());
