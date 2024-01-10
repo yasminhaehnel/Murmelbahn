@@ -41,7 +41,9 @@ function setup() {
 	engine = Engine.create();
 	world = engine.world;
 
-	new BlocksFromSVG(world, "Achterbahn.svg", blocks, { isStatic: true });
+	new BlocksFromSVG(world, "Achterbahn-Strecke.svg", blocks, {
+		isStatic: true,
+	});
 	//new BlocksFromSVG(world, "Heißluftballon.svg", blocks, { isStatic: true });
 
 	// the ball has a label and can react on collisions
@@ -86,8 +88,8 @@ function setup() {
 		new BlockCore(
 			world,
 			{
-				x: 500,
-				y: 400,
+				x: 800,
+				y: 800,
 				w: 60,
 				h: 60,
 				color: "blue",
@@ -116,8 +118,8 @@ function setup() {
 		new BlockCore(
 			world,
 			{
-				x: 800,
-				y: 550,
+				x: 400,
+				y: 350,
 				w: 60,
 				h: 60,
 				color: "green",
@@ -233,55 +235,46 @@ function keyPressed(event) {
 	}
 }
 
-function drawSparkle(x, y){
+function drawSparkle(x, y) {
 	const sparkleSize = 2;
 	const alphaValue = 200;
 
-	for (let i = 0; i < sparkleTrail.length; i++){
-		fill (255, 255, 255, alphaValue);
+	for (let i = 0; i < sparkleTrail.length; i++) {
+		fill(255, 255, 255, alphaValue);
 		noStroke();
 		ellipse(sparkleTrail[i].x, sparkleTrail[i].y, sparkleSize, sparkleSize);
-	
 	}
-	sparkleTrail.push({x: x, y: y});
-	if (sparkleTrail.length > 60){
-		sparkleTrail.splice (0, 1);
+	sparkleTrail.push({ x: x, y: y });
+	if (sparkleTrail.length > 60) {
+		sparkleTrail.splice(0, 1);
 	}
 }
-
-
 
 function draw() {
 	clear();
 
-
 	// position canvas and translate coordinates
 	scrollEndless(murmel.body.position);
-	 
-	let newX = murmel.body.position.x + random (-25, 25); //Verschiebung in x-Richtung
-	 let newY = murmel.body.position.y + random (-40, 30); //Verschiebung in y-Richtung
 
-	 swarmHistory.push ({ x: newX, y: newY }); 
+	let newX = murmel.body.position.x + random(-25, 25); //Verschiebung in x-Richtung
+	let newY = murmel.body.position.y + random(-40, 30); //Verschiebung in y-Richtung
 
-	 for (let i = 0; i < swarmHistory.length; i++){
+	swarmHistory.push({ x: newX, y: newY });
+
+	for (let i = 0; i < swarmHistory.length; i++) {
 		let sparkleX = swarmHistory[i].x;
 		let sparkleY = swarmHistory[i].y;
 
-		drawSparkle (sparkleX, sparkleY);
-	 }
-	 if (swarmHistory.length > 5){
-		swarmHistory.splice (0, 1); 
-	 }
-	 drawSparkle (murmel.body.position.x, murmel.body.position.y);
-
+		drawSparkle(sparkleX, sparkleY);
+	}
+	if (swarmHistory.length > 5) {
+		swarmHistory.splice(0, 1);
+	}
+	drawSparkle(murmel.body.position.x, murmel.body.position.y);
 
 	// animate attracted blocks
 	blocks.forEach((block) => block.draw());
 	mouse.draw();
 	trampolineA.draw();
 	trampolineB.draw();
-
-	 
-	
 }
-	
