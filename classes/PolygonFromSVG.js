@@ -2,9 +2,9 @@
 Creates a new rigid body model with a regular polygon hull based on a SVG.
 The SVG parameter can either be an external SVG file, or an id of an embedded inline SVG element e.g. in index.html.
 
-@param {Matter.World} world - The Matter.js world object
+@param {world} world - The Matter.js world object
 @param {object} attributes - Visual properties e.g. position, radius and color
-@param {Matter.IChamferableBodyDefinition} [options] - Defines the behaviour e.g. mass, bouncyness or whether it can move
+@param {object} [options] - Defines the behaviour e.g. mass, bouncyness or whether it can move
 @extends Block
 
 @example
@@ -49,11 +49,6 @@ let block = new PolygonFromSVG(world, attributes, options)
 */
 
 class PolygonFromSVG extends Block {
-  /**
-   * @param {Matter.World} world
-   * @param {object} attributes
-   * @param {Matter.IChamferableBodyDefinition} options
-   */
   constructor(world, attributes, options) {
     super(world, attributes, options);
   }
@@ -68,30 +63,25 @@ class PolygonFromSVG extends Block {
         // use a path of SVG embedded in current HTML page
         let path = document.getElementById(this.attributes.fromId);
         if (null != path) {
-          // TODO: Das Argument vom Typ "HTMLElement" kann dem Parameter vom Typ "SVGPathElement" nicht zugewiesen werden. (...) ts(2345)
           let vertices = Matter.Svg.pathToVertices(path, 10);
           this.addBodyVertices(vertices)
         }
       } else {
         // use a path in separate SVG file
         let that = this;
-        const request = new XMLHttpRequest();
-        request.open("GET", this.attributes.fromFile, false); // `false` makes the request synchronous
-        request.send(null);
-        const response = request.responseText;
-        const parser = new DOMParser();
-        const svgDoc = parser.parseFromString(response, "image/svg+xml");
-        const path = svgDoc.querySelector("path");
-        let vertices = Matter.Svg.pathToVertices(path, 10);
-        that.addBodyVertices(vertices)
-        Matter.World.add(that.world, [that.body]);
+        httpGet(this.attributes.fromFile, "text", false, function(response) {
+          const parser = new DOMParser();
+          const svgDoc = parser.parseFromString(response, "image/svg+xml");
+          const path = svgDoc.querySelector("path");
+          let vertices = Matter.Svg.pathToVertices(path, 10);
+          that.addBodyVertices(vertices)
+          Matter.World.add(that.world, [that.body]);
+        });
       }
     }
   }
 
   addBodyVertices(vertices) {
-    // TODO: Das Argument vom Typ "Vector[]" kann dem Parameter vom Typ "Vector[][]" nicht zugewiesen werden. (...) ts(2345)
-    // TODO: 4 Argumente wurden erwartet, empfangen wurden aber 3. ts(2554)
     this.body = Matter.Bodies.fromVertices(0, 0, Matter.Vertices.scale(vertices, this.attributes.scale, this.attributes.scale), this.options);
     if (this.body) {
       if (this.attributes.x !== undefined) {
@@ -104,21 +94,16 @@ class PolygonFromSVG extends Block {
           x: this.offset.x + (this.attributes.image.width / 2) * this.attributes.scale - (this.body.position.x - this.body.bounds.min.x),
           y: this.offset.y + (this.attributes.image.height / 2) * this.attributes.scale - (this.body.position.y - this.body.bounds.min.y)
         }
-      }
+      }        
     } else {
       console.log('Cound not construct body for path: ', this.attributes.fromPath)
     }
   }
 
-  /**
-   * @param {Matter.Vector[]} vertices
-   * @returns {Matter.Vector}
-   * @memberof PolygonFromSVG
-   */
   getCenter(vertices) {
     let min = {x: 999999, y: 999999};
     let max = {x: -999999, y: -999999};
-    vertices.forEach((v, _) => {
+    vertices.forEach((v, i) => {
       min.x = min.x > v.x ? v.x : min.x;
       min.y = min.y > v.y ? v.y : min.y;
       max.x = max.x < v.x ? v.x : max.x;
