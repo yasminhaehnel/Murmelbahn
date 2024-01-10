@@ -95,7 +95,7 @@ function setup() {
 			world,
 			{
 				x: 500,
-				y: 400,
+				y: 800,
 				w: 60,
 				h: 60,
 				color: "blue",
@@ -124,21 +124,22 @@ function setup() {
 		new BlockCore(
 			world,
 			{
-				x: 800,
-				y: 550,
+				x: 2450,
+				y: 450,
 				w: 60,
 				h: 60,
 				color: "green",
 				trigger: (ball, block) => {
-					// ball.attributes.color = color(
-					// 	Math.random() * 256,
-					// 	Math.random() * 256,
-					// 	Math.random() * 256
-					// );
 					Matter.Body.applyForce(ball.body, ball.body.position, {
 						x: 0.4,
 						y: -0.4,
 					}); //hier wird die Murmel geschubst
+					const velocityMultiplier = 2; // Du kannst den Multiplikator anpassen, um die Geschwindigkeit zu ändern
+					const currentVelocity = ball.body.velocity;
+					Matter.Body.setVelocity(ball.body, {
+						x: currentVelocity.x * velocityMultiplier,
+						y: currentVelocity.y * velocityMultiplier,
+					});
 				},
 			},
 			{
@@ -241,17 +242,17 @@ function setup() {
 		new BlockCore(
 			world,
 			{
-				x: 1800,
-				y: 400,
-				w: 600,
+				x: 2440,
+				y: 215,
+				w: 300,
 				h: 50,
 				color: "yellow",
 				trigger: (ball, block) => {
-					ball.attributes.color = color(
-						Math.random() * 256,
-						Math.random() * 256,
-						Math.random() * 256
-					);
+					// ball.attributes.color = color(
+					// 	Math.random() * 256,
+					// 	Math.random() * 256,
+					// 	Math.random() * 256
+					// );
 					openLeft.body.collisionFilter.category = 0b0001;
 					openRight.body.collisionFilter.category = 0b0010;
 				},
