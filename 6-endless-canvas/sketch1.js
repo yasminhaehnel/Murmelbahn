@@ -7,6 +7,7 @@ const World = Matter.World;
 // the Matter engine to animate the world
 let engine;
 let world;
+let backgroundSound;
 let mouse;
 let isDrag = false;
 // an array to contain all the blocks created
@@ -20,8 +21,11 @@ let off = { x: 0, y: 0 };
 
 let Heißluftballon;
 let Mond;
+let sparkleTrail = [];
+let swarmHistory = [];
 
 function preload() {
+	backgroundSound = loadSound('glitz.Sound.mp3');
 	Heißluftballon = loadImage("Heißluftballon.png");
 	Mond = loadImage("Mond.png");
 }
@@ -267,6 +271,7 @@ function keyPressed(event) {
 	switch (keyCode) {
 		case 32:
 			console.log("Space");
+			backgroundSound.play();
 			event.preventDefault();
 			Matter.Body.applyForce(murmel.body, murmel.body.position, {
 				x: 0.2,
@@ -278,12 +283,55 @@ function keyPressed(event) {
 			console.log(keyCode);
 	}
 }
+function drawSparkle(x, y) {
+	const sparkleSize = 2;
+	const alphaValue = 200;
+
+	for (let i = 0; i < sparkleTrail.length; i++) {
+		fill(255, 255, 255, alphaValue);
+		noStroke();
+		ellipse(sparkleTrail[i].x, sparkleTrail[i].y, sparkleSize, sparkleSize);
+
+	}
+	sparkleTrail.push({ x: x, y: y });
+	if (sparkleTrail.length > 60) {
+		sparkleTrail.splice(0, 1);
+	}
+}
+let lastPos = { x: 0, y: 0 }
 
 function draw() {
 	clear();
 
+	if (lastPos.x - murmel.body.position.x > 1 || lastPos.y - murmel.body.position.y > 1) {
+		backgroundSound.play();
+		console.log('PLAY')
+	} else {
+		backgroundSound.stop();
+		console.log('STOP')
+
+	}
+	lastPos = { ...murmel.body.position }
+	lastPos = { ...murmel.body.position }
 	// position canvas and translate coordinates
 	scrollEndless(murmel.body.position);
+
+	let newX = murmel.body.position.x + random(-25, 25); //Verschiebung in x-Richtung
+	let newY = murmel.body.position.y + random(-40, 30); //Verschiebung in y-Richtung
+
+	swarmHistory.push({ x: newX, y: newY });
+
+	for (let i = 0; i < swarmHistory.length; i++) {
+		let sparkleX = swarmHistory[i].x;
+		let sparkleY = swarmHistory[i].y;
+
+		drawSparkle(sparkleX, sparkleY);
+	}
+	if (swarmHistory.length > 5) {
+		swarmHistory.splice(0, 1);
+	}
+	drawSparkle(murmel.body.position.x, murmel.body.position.y);
+
 
 	// animate attracted blocks
 	blocks.forEach((block) => block.draw());
