@@ -20,6 +20,8 @@ let off = { x: 0, y: 0 };
 
 let Heißluftballon;
 let Mond;
+let sparkleTrail = [];
+let swarmHistory = [];
 
 function preload() {
 	Heißluftballon = loadImage("Heißluftballon.png");
@@ -231,6 +233,24 @@ function keyPressed(event) {
 	}
 }
 
+function drawSparkle(x, y){
+	const sparkleSize = 2;
+	const alphaValue = 150;
+
+	for (let i = 0; i < sparkleTrail.length; i++){
+		fill (255, 255, 255, alphaValue);
+		noStroke();
+		ellipse(sparkleTrail[i].x, sparkleTrail[i].y, sparkleSize, sparkleSize);
+	
+	}
+	sparkleTrail.push({x: x, y: y});
+	if (sparkleTrail.length > 50){
+		sparkleTrail.splice (0, 1);
+	}
+}
+
+
+
 function draw() {
 	clear();
 
@@ -242,4 +262,22 @@ function draw() {
 	mouse.draw();
 	trampolineA.draw();
 	trampolineB.draw();
+
+	 let newX = murmel.body.position.x + random (-5, 5); //Verschiebung in x-Richtung
+	 let newY = murmel.body.position.y + random (-5, 5); //Verschiebung in y-Richtung
+
+	 swarmHistory.push ({ x: newX, y: newY }); 
+
+	 for (let i = 0; i < swarmHistory.length; i++){
+		let sparkleX = swarmHistory[i].x;
+		let sparkleY = swarmHistory[i].y;
+
+		drawSparkle (sparkleX, sparkleY);
+	 }
+	 if (swarmHistory.length > 5){
+		swarmHistory.splice (0, 1); 
+	 }
+	 drawSparkle (murmel.body.position.x, murmel.body.position.y);
+	
 }
+	
