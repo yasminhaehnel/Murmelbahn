@@ -24,6 +24,10 @@ let Mond;
 let sparkleTrail = [];
 let swarmHistory = [];
 
+let hgWolken;
+let hgBerge;
+let vg;
+
 function preload() {
 	backgroundSound = loadSound("glitz.Sound.mp3");
 	Heißluftballon = loadImage("Heißluftballon.png");
@@ -259,6 +263,9 @@ function setup() {
 			{ isStatic: true, isSensor: true }
 		)
 	);
+	hgWolken = select("#sprite-foregroundWolken");
+	hgBerge = select("#sprite-background");
+	vg = select("#sprite-foreground");
 
 	// run the engine
 	Runner.run(engine);
@@ -358,4 +365,10 @@ function draw() {
 	mouse.draw();
 	trampolineA.draw();
 	trampolineB.draw();
+
+	hgWolken.position(off.x * 0.03, 0);
+	hgBerge.position(off.x * 0, 0);
+	vg.position(off.x * -0.2, 0);
+
+	translate(off.x, 0);
 }
