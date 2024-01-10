@@ -25,9 +25,9 @@ let sparkleTrail = [];
 let swarmHistory = [];
 
 function preload() {
-	backgroundSound = loadSound('glitz.Sound.mp3');
+	backgroundSound = loadSound("glitz.Sound.mp3");
 	Heißluftballon = loadImage("Heißluftballon.png");
-	Mond = loadImage("Mond.png");
+	Mond = loadImage("Mond-groß.png");
 }
 
 // das ist die Dimension des kompletten Levels
@@ -43,7 +43,9 @@ function setup() {
 	engine = Engine.create();
 	world = engine.world;
 
-	new BlocksFromSVG(world, "Achterbahn-Strecke.svg", blocks, { isStatic: true });
+	new BlocksFromSVG(world, "Achterbahn-Strecke.svg", blocks, {
+		isStatic: true,
+	});
 	//new BlocksFromSVG(world, "Heißluftballon.svg", blocks, { isStatic: true });
 
 	// the ball has a label and can react on collisions
@@ -58,8 +60,8 @@ function setup() {
 			frictionAir: 0.0,
 			collisionFilter: {
 				category: 0b0001,
-				mask: 0b0001
-			}
+				mask: 0b0001,
+			},
 		}
 	);
 	blocks.push(murmel);
@@ -196,52 +198,70 @@ function setup() {
 		});
 	});
 
-	//Looping linke seite 
+	//Looping linke seite
 	const openLeft = new PolygonFromSVG(
-		world, {
-		fromFile: 'Achterbahn-Looping-links.svg',
-		color: '#638781',
-		stroke: '#638781', // hides the gaps
-		xweight: 0.0
-	}, {
-		isStatic: true, friction: 0.0,
-		collisionFilter: {
-			category: 0b0010
+		world,
+		{
+			fromFile: "Achterbahn-Looping-links.svg",
+			color: "#638781",
+			stroke: "#638781", // hides the gaps
+			xweight: 0.0,
+		},
+		{
+			isStatic: true,
+			friction: 0.0,
+			collisionFilter: {
+				category: 0b0010,
+			},
 		}
-	});
+	);
 	blocks.push(openLeft);
-	console.log(openLeft)
+	console.log(openLeft);
 
 	//rechte seite Looping
 	const openRight = new PolygonFromSVG(
-		world, {
-		fromFile: 'Achterbahn-Looping-rechts.svg',
-		color: '#638781',
-		stroke: '#638781', // hides the gaps
-	}, {
-		isStatic: true, friction: 0.0,
-		collisionFilter: {
-			category: 0b0001
+		world,
+		{
+			fromFile: "Achterbahn-Looping-rechts.svg",
+			color: "#638781",
+			stroke: "#638781", // hides the gaps
+		},
+		{
+			isStatic: true,
+			friction: 0.0,
+			collisionFilter: {
+				category: 0b0001,
+			},
 		}
-	});
+	);
 	blocks.push(openRight);
 
 	// the box closes openLeft and opens openRight, hier wird getriggert
-	blocks.push(new BlockCore(world,
-		{
-			x: 1800, y: 400, w: 600, h: 50, color: 'yellow',
-			trigger: (ball, block) => {
-				ball.attributes.color = color(Math.random() * 256, Math.random() * 256, Math.random() * 256);
-				openLeft.body.collisionFilter.category = 0b0001;
-				openRight.body.collisionFilter.category = 0b0010;
-			}
-		},
-		{ isStatic: true, isSensor: true }
-	));
+	blocks.push(
+		new BlockCore(
+			world,
+			{
+				x: 1800,
+				y: 400,
+				w: 600,
+				h: 50,
+				color: "yellow",
+				trigger: (ball, block) => {
+					ball.attributes.color = color(
+						Math.random() * 256,
+						Math.random() * 256,
+						Math.random() * 256
+					);
+					openLeft.body.collisionFilter.category = 0b0001;
+					openRight.body.collisionFilter.category = 0b0010;
+				},
+			},
+			{ isStatic: true, isSensor: true }
+		)
+	);
 
 	// run the engine
 	Runner.run(engine);
-
 }
 
 function scrollEndless(point) {
@@ -291,28 +311,29 @@ function drawSparkle(x, y) {
 		fill(255, 255, 255, alphaValue);
 		noStroke();
 		ellipse(sparkleTrail[i].x, sparkleTrail[i].y, sparkleSize, sparkleSize);
-
 	}
 	sparkleTrail.push({ x: x, y: y });
 	if (sparkleTrail.length > 60) {
 		sparkleTrail.splice(0, 1);
 	}
 }
-let lastPos = { x: 0, y: 0 }
+let lastPos = { x: 0, y: 0 };
 
 function draw() {
 	clear();
 
-	if (lastPos.x - murmel.body.position.x > 1 || lastPos.y - murmel.body.position.y > 1) {
+	if (
+		lastPos.x - murmel.body.position.x > 1 ||
+		lastPos.y - murmel.body.position.y > 1
+	) {
 		backgroundSound.play();
-		console.log('PLAY')
+		console.log("PLAY");
 	} else {
 		backgroundSound.stop();
-		console.log('STOP')
-
+		console.log("STOP");
 	}
-	lastPos = { ...murmel.body.position }
-	lastPos = { ...murmel.body.position }
+	lastPos = { ...murmel.body.position };
+	lastPos = { ...murmel.body.position };
 	// position canvas and translate coordinates
 	scrollEndless(murmel.body.position);
 
@@ -331,7 +352,6 @@ function draw() {
 		swarmHistory.splice(0, 1);
 	}
 	drawSparkle(murmel.body.position.x, murmel.body.position.y);
-
 
 	// animate attracted blocks
 	blocks.forEach((block) => block.draw());
