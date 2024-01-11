@@ -426,4 +426,6 @@ function draw() {
 	vg.position(off.x * -0.2, 0);
 
 	translate(off.x, 0);
+
+	Engine.update(engine);
 }
