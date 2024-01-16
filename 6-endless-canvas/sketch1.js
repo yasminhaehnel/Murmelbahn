@@ -33,7 +33,7 @@ let hgBerge;
 let vg;
 
 function preload() {
-	backgroundSound = loadSound("Mystery in the Forest.mp3");
+	backgroundSound = loadSound("Background-Sound-Murmelbahn.mp3");
 	glitzersound = loadSound("Fairy Glitter.wav");
 	Heißluftballon = loadImage("Heißluftballon.png");
 	Mond = loadImage("Mond-groß.png");
@@ -163,6 +163,27 @@ function setup() {
 				// density: 0.05,
 				// restitution: 0.5,
 				// frictionAir: 0.01,
+			}
+		)
+	);
+
+	//Trigger BackgroundSound
+	blocks.push(
+		new Block(
+			world,
+			{
+				x: 2750,
+				y: 435,
+				w: 50,
+				h: 30,
+				trigger: (ball, block) => {
+					//Backgroundsound abspielen
+					backgroundSound.play();
+				},
+				//color: "yellow",
+			},
+			{
+				isStatic: true,
 			}
 		)
 	);
@@ -410,7 +431,7 @@ function setup() {
 				y: 215,
 				w: 300,
 				h: 50,
-				color: "yellow",
+				//color: "yellow",
 				trigger: (ball, block) => {
 					openLeft.body.collisionFilter.category = 0b0001;
 					openRight.body.collisionFilter.category = 0b0010;
