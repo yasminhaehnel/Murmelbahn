@@ -7,8 +7,11 @@ const World = Matter.World;
 // the Matter engine to animate the world
 let engine;
 let world;
+
 let backgroundSound;
 let glitzersound;
+let pilzsound;
+
 let mouse;
 let isDrag = false;
 // an array to contain all the blocks created
@@ -35,6 +38,7 @@ let vg;
 function preload() {
 	backgroundSound = loadSound("Background-Sound-Murmelbahn.mp3");
 	glitzersound = loadSound("Fairy Glitter.wav");
+	pilzsound = loadSound("jump sound.mp3");
 	Heißluftballon = loadImage("Heißluftballon.png");
 	Mond = loadImage("Mond-groß.png");
 	Stern = loadImage("Stern.png");
@@ -106,29 +110,29 @@ function setup() {
 		)
 	);
 
-	//Block mit Murmel wird schwerer
-	blocks.push(
-		new BlockCore(
-			world,
-			{
-				x: 500,
-				y: 800,
-				w: 60,
-				h: 60,
-				color: "blue",
-				trigger: (ball, block) => {
-					Matter.Body.setDensity(murmel.body, 0.019);
-				},
-			},
-			{
-				isStatic: true,
-				isSensor: true,
-				density: 0.05,
-				restitution: 0.5,
-				frictionAir: 0.01,
-			}
-		)
-	);
+	// //Block mit Murmel wird schwerer
+	// blocks.push(
+	// 	new BlockCore(
+	// 		world,
+	// 		{
+	// 			x: 500,
+	// 			y: 800,
+	// 			w: 60,
+	// 			h: 60,
+	// 			color: "blue",
+	// 			trigger: (ball, block) => {
+	// 				Matter.Body.setDensity(murmel.body, 0.019);
+	// 			},
+	// 		},
+	// 		{
+	// 			isStatic: true,
+	// 			isSensor: true,
+	// 			density: 0.05,
+	// 			restitution: 0.5,
+	// 			frictionAir: 0.01,
+	// 		}
+	// 	)
+	// );
 
 	// the box triggers a function on collisions, hier wird die Murmel geschubst und erstellt
 	blocks.push(
@@ -181,6 +185,40 @@ function setup() {
 					backgroundSound.play();
 				},
 				//color: "yellow",
+			},
+			{
+				isStatic: true,
+			}
+		)
+	);
+
+	//Waggon1 auf Achterbahn
+	blocks.push(
+		new Block(
+			world,
+			{
+				x: 3590,
+				y: 240,
+				w: 70,
+				h: 20,
+				//color: "red",
+			},
+			{
+				isStatic: true,
+			}
+		)
+	);
+
+	//Waggon2 auf Achterbahn
+	blocks.push(
+		new Block(
+			world,
+			{
+				x: 4500,
+				y: 290,
+				w: 70,
+				h: 20,
+				//color: "red",
 			},
 			{
 				isStatic: true,
@@ -294,6 +332,7 @@ function setup() {
 		)
 	);
 
+	//Pilz1
 	trampolinA = new Block(
 		world,
 		{
@@ -301,12 +340,18 @@ function setup() {
 			y: 535,
 			w: 165,
 			h: 19,
+			trigger: (ball, block) => {
+				//Backgroundsound abspielen
+				pilzsound.play();
+			},
 			color: "green",
 			offset: { x: 0, y: 47 },
 			image: Pilz1,
 		},
 		{ isStatic: true, restitution: 1.3 }
 	);
+
+	//Pilz2
 	trampolinB = new Block(
 		world,
 		{
@@ -314,12 +359,18 @@ function setup() {
 			y: 580,
 			w: 100,
 			h: 18,
+			trigger: (ball, block) => {
+				//Backgroundsound abspielen
+				pilzsound.play();
+			},
 			color: "red",
 			offset: { x: 0, y: 27 },
 			image: Pilz2,
 		},
 		{ isStatic: true, restitution: 1.3 }
 	);
+
+	//Pilz3
 	trampolinC = new Block(
 		world,
 		{
@@ -327,12 +378,18 @@ function setup() {
 			y: 530,
 			w: 100,
 			h: 17,
+			trigger: (ball, block) => {
+				//Backgroundsound abspielen
+				pilzsound.play();
+			},
 			color: "orange",
 			offset: { x: 0, y: 26 },
 			image: Pilz2,
 		},
 		{ isStatic: true, restitution: 1.3 }
 	);
+
+	//Pilz4
 	trampolinD = new Block(
 		world,
 		{
@@ -340,6 +397,10 @@ function setup() {
 			y: 500,
 			w: 165,
 			h: 20,
+			trigger: (ball, block) => {
+				//Backgroundsound abspielen
+				pilzsound.play();
+			},
 			color: "blue",
 			offset: { x: 0, y: 47 },
 			image: Pilz1,
