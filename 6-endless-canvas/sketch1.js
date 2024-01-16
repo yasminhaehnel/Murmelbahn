@@ -8,6 +8,7 @@ const World = Matter.World;
 let engine;
 let world;
 let backgroundSound;
+let glitzersound;
 let mouse;
 let isDrag = false;
 // an array to contain all the blocks created
@@ -32,7 +33,8 @@ let hgBerge;
 let vg;
 
 function preload() {
-	backgroundSound = loadSound("glitz.Sound.mp3");
+	backgroundSound = loadSound("Mystery in the Forest.mp3");
+	glitzersound = loadSound("Fairy Glitter.wav");
 	Heißluftballon = loadImage("Heißluftballon.png");
 	Mond = loadImage("Mond-groß.png");
 	Stern = loadImage("Stern.png");
@@ -86,7 +88,11 @@ function setup() {
 				y: 250,
 				w: 50,
 				h: 30,
-				//trigger: (ball, block) => {},
+				trigger: (ball, block) => {
+					//Backgroundsound abspielen
+					backgroundSound.play();
+				},
+
 				scale: 0.3,
 				offset: { x: 0, y: -80 },
 				image: Heißluftballon,
@@ -111,12 +117,6 @@ function setup() {
 				h: 60,
 				color: "blue",
 				trigger: (ball, block) => {
-					// ball.attributes.color = color(
-					// 	Math.random() * 256,
-					// 	Math.random() * 256,
-					// 	Math.random() * 256
-					// );
-
 					Matter.Body.setDensity(murmel.body, 0.019);
 				},
 			},
@@ -153,6 +153,8 @@ function setup() {
 						x: currentVelocity.x * velocityMultiplier,
 						y: currentVelocity.y * velocityMultiplier,
 					});
+					//GLitzersound abspielen
+					glitzersound.play();
 				},
 			},
 			{
@@ -304,11 +306,6 @@ function setup() {
 				h: 50,
 				color: "yellow",
 				trigger: (ball, block) => {
-					// ball.attributes.color = color(
-					// 	Math.random() * 256,
-					// 	Math.random() * 256,
-					// 	Math.random() * 256
-					// );
 					openLeft.body.collisionFilter.category = 0b0001;
 					openRight.body.collisionFilter.category = 0b0010;
 				},
@@ -351,7 +348,6 @@ function keyPressed(event) {
 	switch (keyCode) {
 		case 32:
 			console.log("Space");
-			backgroundSound.play();
 			event.preventDefault();
 			Matter.Body.applyForce(murmel.body, murmel.body.position, {
 				x: 0.2,
@@ -382,16 +378,18 @@ let lastPos = { x: 0, y: 0 };
 function draw() {
 	clear();
 
-	if (
-		lastPos.x - murmel.body.position.x > 1 ||
-		lastPos.y - murmel.body.position.y > 1
-	) {
-		backgroundSound.play();
-		console.log("PLAY");
-	} else {
-		backgroundSound.stop();
-		console.log("STOP");
-	}
+	//Sound bei Spacetaste
+	// if (
+	// 	lastPos.x - murmel.body.position.x > 1 ||
+	// 	lastPos.y - murmel.body.position.y > 1
+	// ) {
+	// 	backgroundSound.play();
+	// 	console.log("PLAY");
+	// } else {
+	// 	backgroundSound.stop();
+	// 	console.log("STOP");
+	// }
+
 	lastPos = { ...murmel.body.position };
 	lastPos = { ...murmel.body.position };
 	// position canvas and translate coordinates
