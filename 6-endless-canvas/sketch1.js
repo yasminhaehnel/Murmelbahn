@@ -167,6 +167,112 @@ function setup() {
 		)
 	);
 
+	//Wände bei den ersten Pilzen
+	blocks.push(
+		new Block(
+			world,
+			{
+				x: 1400,
+				y: 595,
+				w: 500,
+				h: 10,
+			},
+			{
+				isStatic: true,
+			}
+		)
+	);
+	blocks.push(
+		new Block(
+			world,
+			{
+				x: 1150,
+				y: 540,
+				w: 10,
+				h: 100,
+			},
+			{
+				isStatic: true,
+			}
+		)
+	);
+
+	blocks.push(
+		new Block(
+			world,
+			{
+				x: 1560,
+				y: 500,
+				w: 10,
+				h: 280,
+			},
+			{
+				isStatic: true,
+			}
+		)
+	);
+
+	//Wände bei den zweiten Pilzen
+	blocks.push(
+		new Block(
+			world,
+			{
+				x: 3280,
+				y: 540,
+				w: 500,
+				h: 10,
+			},
+			{
+				isStatic: true,
+			}
+		)
+	);
+	blocks.push(
+		new Block(
+			world,
+			{
+				x: 3070,
+				y: 440,
+				w: 10,
+				h: 200,
+			},
+			{
+				isStatic: true,
+			}
+		)
+	);
+
+	blocks.push(
+		new Block(
+			world,
+			{
+				x: 3450,
+				y: 450,
+				w: 10,
+				h: 280,
+			},
+			{
+				isStatic: true,
+			}
+		)
+	);
+
+	//Wand über Looping
+	blocks.push(
+		new Block(
+			world,
+			{
+				x: 2400,
+				y: 40,
+				w: 10,
+				h: 80,
+			},
+			{
+				isStatic: true,
+			}
+		)
+	);
+
 	trampolinA = new Block(
 		world,
 		{
