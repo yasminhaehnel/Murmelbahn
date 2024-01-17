@@ -11,6 +11,7 @@ let world;
 let backgroundSound;
 let glitzersound;
 let pilzsound;
+let kometsound;
 
 let mouse;
 let isDrag = false;
@@ -42,6 +43,7 @@ function preload() {
 	backgroundSound = loadSound("Background-Sound-Murmelbahn.mp3");
 	glitzersound = loadSound("Fairy Glitter.wav");
 	pilzsound = loadSound("jump sound.mp3");
+	kometsound = loadSound("Meteor Crash.mp3");
 	Heißluftballon = loadImage("Heißluftballon.png");
 	Mond = loadImage("Mond-groß.png");
 	Stern = loadImage("Stern.png");
@@ -118,7 +120,13 @@ function setup() {
 	//Komet Strecke
 	ground = new Block(
 		world,
-		{ x: 440, y: 80, w: 480, h: 15, color: "orange" },
+		{
+			x: 440,
+			y: 80,
+			w: 480,
+			h: 15,
+			color: "orange",
+		},
 		{
 			isStatic: true,
 			angle: PI / -10,
@@ -156,29 +164,36 @@ function setup() {
 	);
 	blocks.push(komet);
 
-	// //Block mit Murmel wird schwerer
-	// blocks.push(
-	// 	new BlockCore(
-	// 		world,
-	// 		{
-	// 			x: 500,
-	// 			y: 800,
-	// 			w: 60,
-	// 			h: 60,
-	// 			color: "blue",
-	// 			trigger: (ball, block) => {
-	// 				Matter.Body.setDensity(murmel.body, 0.019);
-	// 			},
-	// 		},
-	// 		{
-	// 			isStatic: true,
-	// 			isSensor: true,
-	// 			density: 0.05,
-	// 			restitution: 0.5,
-	// 			frictionAir: 0.01,
-	// 		}
-	// 	)
-	// );
+	//////////////////
+
+	//Crash Sound
+	blocks.push(
+		new Block(
+			world,
+			{
+				x: 540,
+				y: 70,
+				w: 48,
+				h: 50,
+				color: "blue",
+				trigger: (ball, block) => {
+					//Crash Sound
+					kometsound.play();
+				},
+
+				scale: 0.3,
+				offset: { x: 0, y: -80 },
+			},
+			{
+				isStatic: true,
+				density: 0.1,
+				restitution: 0.2,
+				frictionAir: 0.01,
+			}
+		)
+	);
+
+	/////////////////
 
 	// the box triggers a function on collisions, hier wird die Murmel geschubst und erstellt
 	blocks.push(
@@ -456,21 +471,21 @@ function setup() {
 	//Plattform für Ballon
 	blocks.push(
 		new Block(
-		world,
-		{
-			x: 500,
-			y: 100,
-			w: 5,
-			h: 5,
-			trigger: (ball, block) => {
-				//Backgroundsound abspielen
-				pilzsound.play();
+			world,
+			{
+				x: 500,
+				y: 100,
+				w: 5,
+				h: 5,
+				trigger: (ball, block) => {
+					//Backgroundsound abspielen
+					pilzsound.play();
+				},
+				color: "blue",
+				offset: { x: 0, y: 47 },
+				image: Pilz1,
 			},
-			color: "blue",
-			offset: { x: 0, y: 47 },
-			image: Pilz1,
-		},
-		{ isStatic: true}
+			{ isStatic: true }
 		)
 	);
 
