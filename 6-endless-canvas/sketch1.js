@@ -140,7 +140,7 @@ function setup() {
 					x: 0.2,
 					y: 0.0,
 				});
-				Matter.Body.setDensity(ball.body, 0.019);
+				Matter.Body.setDensity(ball.body, 0.2);
 			},
 		},
 		{
@@ -634,6 +634,8 @@ function draw() {
 	trampolinC.draw();
 	trampolinD.draw();
 
+	ground.draw();
+
 	hgWolken.position(off.x * 0, 0);
 	hgBerge.position(off.x * 0, 0);
 	vg.position(off.x * -0.2, 0);
@@ -641,6 +643,4 @@ function draw() {
 	translate(off.x, 0);
 
 	Engine.update(engine);
-
-	ground.draw();
 }
