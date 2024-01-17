@@ -137,12 +137,12 @@ function setup() {
 					y: 0.0,
 				});
 				Matter.Body.applyForce(block.body, block.body.position, {
-					x: 0.09,
-					y: -0.1,
+					x: 0.1,
+					y: -0.05,
 				});
 				setTimeout(() => {
 					console.log("removed");
-					blocks.filter((block) => block != komet);
+					blocks = blocks.filter(block => block != komet);
 					Matter.World.remove(world, block.body);
 				}, 1000);
 			},
