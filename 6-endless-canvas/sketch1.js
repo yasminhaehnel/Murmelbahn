@@ -126,6 +126,10 @@ function setup() {
 			w: 480,
 			h: 15,
 			color: "orange",
+			trigger: (ball, block) => {
+				//Crash Sound
+				kometsound.play();
+			},
 		},
 		{
 			isStatic: true,
@@ -133,7 +137,7 @@ function setup() {
 		}
 	);
 
-	//Komet
+	//Komet 
 	komet = new Ball(
 		world,
 		{
@@ -164,36 +168,7 @@ function setup() {
 	);
 	blocks.push(komet);
 
-	//////////////////
 
-	//Crash Sound
-	blocks.push(
-		new Block(
-			world,
-			{
-				x: 540,
-				y: 70,
-				w: 48,
-				h: 50,
-				color: "blue",
-				trigger: (ball, block) => {
-					//Crash Sound
-					kometsound.play();
-				},
-
-				scale: 0.3,
-				offset: { x: 0, y: -80 },
-			},
-			{
-				isStatic: true,
-				density: 0.1,
-				restitution: 0.2,
-				frictionAir: 0.01,
-			}
-		)
-	);
-
-	/////////////////
 
 	// the box triggers a function on collisions, hier wird die Murmel geschubst und erstellt
 	blocks.push(
