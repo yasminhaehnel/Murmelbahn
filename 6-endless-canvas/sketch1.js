@@ -25,6 +25,10 @@ let trampolinA;
 let trampolinB;
 let trampolinC;
 let trampolinD;
+let trampolinE;
+let trampolinF;
+let trampolinG;
+let trampolinH;
 
 let canvasElem;
 let off = { x: 0, y: 0 };
@@ -137,7 +141,7 @@ function setup() {
 		}
 	);
 
-	//Komet 
+	//Komet
 	komet = new Ball(
 		world,
 		{
@@ -167,8 +171,6 @@ function setup() {
 		}
 	);
 	blocks.push(komet);
-
-
 
 	// the box triggers a function on collisions, hier wird die Murmel geschubst und erstellt
 	blocks.push(
@@ -464,103 +466,178 @@ function setup() {
 		)
 	);
 
+	//Pilz5
+	trampolinE = new Block(
+		world,
+		{
+			x: 4880,
+			y: 600,
+			w: 100,
+			h: 17,
+			trigger: (ball, block) => {
+				//Backgroundsound abspielen
+				pilzsound.play();
+			},
+			color: "orange",
+			offset: { x: 0, y: 26 },
+			image: Pilz2,
+		},
+		{ isStatic: true, restitution: 1.2 }
+	);
+
+	//Pilz6
+	trampolinF = new Block(
+		world,
+		{
+			x: 5000,
+			y: 580,
+			w: 165,
+			h: 20,
+			trigger: (ball, block) => {
+				//Backgroundsound abspielen
+				pilzsound.play();
+			},
+			color: "blue",
+			offset: { x: 0, y: 47 },
+			image: Pilz1,
+		},
+		{ isStatic: true, restitution: 1.2 }
+	);
+
+	//Pilz7
+	trampolinG = new Block(
+		world,
+		{
+			x: 5150,
+			y: 605,
+			w: 165,
+			h: 20,
+			trigger: (ball, block) => {
+				//Backgroundsound abspielen
+				pilzsound.play();
+			},
+			color: "blue",
+			offset: { x: 0, y: 47 },
+			image: Pilz1,
+		},
+		{ isStatic: true, restitution: 1.2 }
+	);
+	//Pilz8
+	trampolinH = new Block(
+		world,
+		{
+			x: 5300,
+			y: 620,
+			w: 100,
+			h: 17,
+			trigger: (ball, block) => {
+				//Backgroundsound abspielen
+				pilzsound.play();
+			},
+			color: "orange",
+			offset: { x: 0, y: 26 },
+			image: Pilz2,
+		},
+		{ isStatic: true, restitution: 1.2 }
+	);
+
 	//Karusell///////////////////////////////////////////////////////////
 	//Schaukel_1
-	swingStiff = new Polygon(world, {
-		x: 4900,
-		y: 120,
-		s: 4,
-		r: 60,
+	swingStiff = new Block(world, {
+		x: 4860,
+		y: 110,
+		w: 150,
+		h: 20,
 		color: "red",
 	});
 	swingStiff.constrainTo(null, {
-		pointA: { x: -40, y: 10 },
-		length: 350,
-		stiffness: 0.001,
-		damping: 0.005,
-		color: "red",
+		pointA: { x: -70, y: 0 },
+		length: 320,
+		stiffness: 0.05,
+		damping: 1.5,
+		color: "yellow",
 		draw: true,
 	});
 	swingStiff.constrainTo(null, {
-		pointA: { x: 40, y: 10 },
-		length: 350,
-		stiffness: 0.001,
-		damping: 0.005,
-		color: "red",
+		pointA: { x: 70, y: 0 },
+		length: 320,
+		stiffness: 0.05,
+		damping: 1.5,
+		color: "green",
 		draw: true,
 	});
 
 	//Schaukel_2
-	swingStiff2 = new Polygon(world, {
+	swingStiff2 = new Block(world, {
 		x: 5000,
 		y: 120,
-		s: 4,
-		r: 60,
-		color: "red",
+		w: 150,
+		h: 20,
+		color: "yellow",
 	});
 	swingStiff2.constrainTo(null, {
-		pointA: { x: -40, y: 10 },
+		pointA: { x: -70, y: 0 },
 		length: 350,
-		stiffness: 0.001,
-		damping: 0.005,
-		color: "red",
+		stiffness: 0.1,
+		damping: 1,
+		color: "green",
 		draw: true,
 	});
 	swingStiff2.constrainTo(null, {
-		pointA: { x: 40, y: 10 },
+		pointA: { x: 70, y: 0 },
 		length: 350,
-		stiffness: 0.001,
-		damping: 0.005,
+		stiffness: 0.1,
+		damping: 1,
 		color: "red",
 		draw: true,
 	});
 
 	//Schaukel_3
-	swingStiff3 = new Polygon(world, {
-		x: 5100,
-		y: 120,
-		s: 4,
-		r: 60,
+	swingStiff3 = new Block(world, {
+		x: 5140,
+		y: 130,
+		w: 150,
+		h: 20,
 		color: "red",
 	});
 	swingStiff3.constrainTo(null, {
-		pointA: { x: -40, y: 10 },
-		length: 350,
-		stiffness: 0.001,
-		damping: 0.005,
+		pointA: { x: -70, y: 0 },
+		length: 390,
+		stiffness: 0.1,
+		damping: 1,
 		color: "red",
 		draw: true,
 	});
 	swingStiff3.constrainTo(null, {
-		pointA: { x: 40, y: 10 },
-		length: 350,
-		stiffness: 0.001,
-		damping: 0.005,
+		pointA: { x: 70, y: 0 },
+		length: 390,
+		stiffness: 0.1,
+		damping: 1,
 		color: "red",
 		draw: true,
 	});
 
 	//Schaukel4
-	swingStiff4 = new Polygon(world, {
-		x: 5200,
-		y: 120,
-		s: 4,
-		r: 60,
+	swingStiff4 = new Block(world, {
+		x: 5280,
+		y: 140,
+		w: 150,
+		h: 20,
 		color: "red",
 	});
 	swingStiff4.constrainTo(null, {
-		pointA: { x: -40, y: 10 },
-		length: 350,
-		stiffness: 0.001,
-		damping: 0.005,
+		pointA: { x: -70, y: 0 },
+		length: 430,
+		stiffness: 0.1,
+		damping: 1,
 		color: "red",
 		draw: true,
 	});
 	swingStiff4.constrainTo(null, {
-		pointA: { x: 40, y: 10 },
-		length: 350,
-		stiffness: 0.001,
-		damping: 0.005,
+		pointA: { x: 70, y: 0 },
+		length: 430,
+		stiffness: 0.1,
+		damping: 1,
 		color: "red",
 		draw: true,
 	});
@@ -752,6 +829,10 @@ function draw() {
 	trampolinB.draw();
 	trampolinC.draw();
 	trampolinD.draw();
+	trampolinE.draw();
+	trampolinF.draw();
+	trampolinG.draw();
+	trampolinH.draw();
 
 	//Karusell
 	swingStiff.draw();
