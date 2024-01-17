@@ -48,7 +48,7 @@ function preload() {
 	glitzersound = loadSound("Fairy Glitter.wav");
 	pilzsound = loadSound("jump sound.mp3");
 	kometsound = loadSound("Meteor Crash.mp3");
-	Heißluftballon = loadImage("Heißluftballon.png");
+	Heißluftballon = loadImage("HeißluftballonMitSeil.png");
 	Mond = loadImage("Mond-groß.png");
 	Stern = loadImage("Stern.png");
 	Pilz1 = loadImage("Pilz1.png");
@@ -445,31 +445,28 @@ function setup() {
 		},
 		{ isStatic: true, restitution: 1.3 }
 	);
+
 	//Plattform für Ballon
-	ballon =new Block (
-	world,
-			{
-				x: 500,
-				y: 100,
-				w: 5,
-				h: 5,
-				trigger: (ball, block) => {
-					//Backgroundsound abspielen
-					pilzsound.play();
-				},
-				color: "blue",
-				offset: { x: 0, y: 47 },
-				image: Heißluftballon,
-				scale: 0.3,
-			},
-			{ isStatic: true }
-		)
-		blocks.push(ballon);
-		function update (){
-			blocks.forEach(block =>{
-				block.update();
+	ballon = new Block(
+		world,
+		{
+			x: 8500,
+			y: 470,
+			w: 5,
+			h: 5,
+			color: "blue",
+			offset: { x: 0, y: 47 },
+			image: Heißluftballon,
+			scale: 0.3,
+		},
+		{ isStatic: true }
+	);
+	blocks.push(ballon);
+	function update() {
+		blocks.forEach((block) => {
+			block.update();
 		});
-		}
+	}
 
 	//Pilz5
 	trampolinE = new Block(
@@ -802,7 +799,7 @@ function drawSparkle(x, y) {
 	}
 }
 let lastPos = { x: 0, y: 0 };
-let ballonMove = {x: 1, y: 0.2}
+let ballonMove = { x: 0.1, y: 0.1 };
 
 function draw() {
 	clear();
@@ -814,7 +811,7 @@ function draw() {
 
 	let newX = murmel.body.position.x + random(-25, 25); //Verschiebung in x-Richtung
 	let newY = murmel.body.position.y + random(-40, 30); //Verschiebung in y-Richtung
-	
+
 	//Glitzereffekt
 	swarmHistory.push({ x: newX, y: newY });
 
@@ -828,11 +825,12 @@ function draw() {
 		swarmHistory.splice(0, 1);
 	}
 	drawSparkle(murmel.body.position.x, murmel.body.position.y);
+
 	//Ballon Bewegung
-	if (frameCount % 90 == 5){
+	if (frameCount % 90 == 5) {
 		ballonMove.x = -ballonMove.x;
 	}
-	if (frameCount % 50 == 0){
+	if (frameCount % 50 == 0) {
 		ballonMove.y = -ballonMove.y;
 	}
 	ballon.body.position.x += ballonMove.x;
