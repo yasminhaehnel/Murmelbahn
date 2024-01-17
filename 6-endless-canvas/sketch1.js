@@ -17,6 +17,7 @@ let isDrag = false;
 // an array to contain all the blocks created
 let blocks = [];
 let murmel;
+let komet;
 let trampolinA;
 let trampolinB;
 let trampolinC;
@@ -47,7 +48,7 @@ function preload() {
 }
 
 // das ist die Dimension des kompletten Levels
-const dim = { w: 12960, h: 720 };
+const dim = { w: 13000, h: 720 };
 
 function setup() {
 	let canvas = createCanvas(windowWidth, windowHeight);
@@ -83,13 +84,32 @@ function setup() {
 	);
 	blocks.push(murmel);
 
+	//Komet
+	komet = new Ball(
+		world,
+		{ x: 550, y: 20, r: 20, color: "red" },
+		{
+			label: "Komet",
+			isStatic: true,
+			// density: 0.005,
+			// restitution: 0.25,
+			// friction: 0.5,
+			// frictionAir: 0.0,
+			// collisionFilter: {
+			// 	category: 0b0001,
+			// 	mask: 0b0001,
+			// },
+		}
+	);
+	blocks.push(komet);
+
 	// the box triggers a function on collisions
 	blocks.push(
 		new Block(
 			world,
 			{
 				x: 250,
-				y: 250,
+				y: 180,
 				w: 50,
 				h: 30,
 				trigger: (ball, block) => {
@@ -99,7 +119,6 @@ function setup() {
 
 				scale: 0.3,
 				offset: { x: 0, y: -80 },
-				image: Heißluftballon,
 			},
 			{
 				isStatic: true,
