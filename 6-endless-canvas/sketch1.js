@@ -814,7 +814,8 @@ function draw() {
 
 	let newX = murmel.body.position.x + random(-25, 25); //Verschiebung in x-Richtung
 	let newY = murmel.body.position.y + random(-40, 30); //Verschiebung in y-Richtung
-
+	
+	//Glitzereffekt
 	swarmHistory.push({ x: newX, y: newY });
 
 	for (let i = 0; i < swarmHistory.length; i++) {
@@ -827,13 +828,15 @@ function draw() {
 		swarmHistory.splice(0, 1);
 	}
 	drawSparkle(murmel.body.position.x, murmel.body.position.y);
-
+	//Ballon Bewegung
 	if (frameCount % 90 == 5){
 		ballonMove.x = -ballonMove.x;
 	}
 	if (frameCount % 50 == 0){
 		ballonMove.y = -ballonMove.y;
 	}
+	ballon.body.position.x += ballonMove.x;
+	ballon.body.position.y += ballonMove.y;
 
 	// animate attracted blocks
 	blocks.forEach((block) => block.draw());
