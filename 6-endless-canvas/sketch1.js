@@ -446,9 +446,8 @@ function setup() {
 		{ isStatic: true, restitution: 1.3 }
 	);
 	//Plattform für Ballon
-	blocks.push(
-		new Block(
-			world,
+	ballon =new Block (
+	world,
 			{
 				x: 500,
 				y: 100,
@@ -460,11 +459,16 @@ function setup() {
 				},
 				color: "blue",
 				offset: { x: 0, y: 47 },
-				image: Pilz1,
+				image: Heißluftballon,
 			},
 			{ isStatic: true }
 		)
-	);
+		blocks.push(ballon);
+		function update (){
+			blocks.forEach(block =>{
+				block.update();
+		});
+		}
 
 	//Pilz5
 	trampolinE = new Block(
@@ -797,6 +801,7 @@ function drawSparkle(x, y) {
 	}
 }
 let lastPos = { x: 0, y: 0 };
+let ballonMove = {x: 1, y: 0.2}
 
 function draw() {
 	clear();
@@ -821,6 +826,13 @@ function draw() {
 		swarmHistory.splice(0, 1);
 	}
 	drawSparkle(murmel.body.position.x, murmel.body.position.y);
+
+	if (frameCount % 90 == 5){
+		ballonMove.x = -ballonMove.x;
+	}
+	if (frameCount % 50 == 0){
+		ballonMove.y = -ballonMove.y;
+	}
 
 	// animate attracted blocks
 	blocks.forEach((block) => block.draw());
