@@ -453,6 +453,26 @@ function setup() {
 		},
 		{ isStatic: true, restitution: 1.3 }
 	);
+	//Plattform für Ballon
+	blocks.push(
+		new Block(
+		world,
+		{
+			x: 500,
+			y: 250,
+			w: 165,
+			h: 20,
+			trigger: (ball, block) => {
+				//Backgroundsound abspielen
+				pilzsound.play();
+			},
+			color: "blue",
+			offset: { x: 0, y: 47 },
+			image: Pilz1,
+		},
+		{ isStatic: true}
+		)
+	);
 
 	//Karusell///////////////////////////////////////////////////////////
 	//Schaukel_1
