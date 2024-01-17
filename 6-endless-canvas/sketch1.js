@@ -64,6 +64,8 @@ function setup() {
 
 	new BlocksFromSVG(world, "Achterbahn-Strecke.svg", blocks, {
 		isStatic: true,
+		//color: "#C7C6B6",
+		//stroke: "#C7C6B6", // hides the gaps
 	});
 	console.log("OK");
 	//new BlocksFromSVG(world, "Heißluftballon.svg", blocks, { isStatic: true });
@@ -142,9 +144,9 @@ function setup() {
 				});
 				setTimeout(() => {
 					console.log("removed", blocks.length);
-					blocks = blocks.filter(block => block != komet);
+					blocks = blocks.filter((block) => block != komet);
 					Matter.World.remove(world, block.body);
-					console.log("removed", blocks.length)
+					console.log("removed", blocks.length);
 				}, 1000);
 			},
 		},
@@ -596,8 +598,8 @@ function setup() {
 		world,
 		{
 			fromFile: "Achterbahn-Looping-links.svg",
-			color: "#638781",
-			stroke: "#638781", // hides the gaps
+			color: "#C7C6B6",
+			stroke: "#C7C6B6", // hides the gaps
 			xweight: 0.0,
 		},
 		{
@@ -616,8 +618,8 @@ function setup() {
 		world,
 		{
 			fromFile: "Achterbahn-Looping-rechts.svg",
-			color: "#638781",
-			stroke: "#638781", // hides the gaps
+			color: "#C7C6B6",
+			stroke: "#C7C6B6", // hides the gaps
 		},
 		{
 			isStatic: true,
