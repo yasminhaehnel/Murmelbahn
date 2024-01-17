@@ -460,6 +460,7 @@ function setup() {
 				color: "blue",
 				offset: { x: 0, y: 47 },
 				image: Heißluftballon,
+				scale: 0.3,
 			},
 			{ isStatic: true }
 		)
