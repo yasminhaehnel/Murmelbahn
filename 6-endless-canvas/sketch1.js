@@ -110,7 +110,7 @@ function setup() {
 				y: 140,
 				w: 50,
 				h: 30,
-				color: "red",
+				//color: "red",
 				trigger: (ball, block) => {
 					//Backgroundsound abspielen
 					backgroundSound.play();
@@ -136,7 +136,7 @@ function setup() {
 			y: 80,
 			w: 480,
 			h: 15,
-			color: "orange",
+			//color: "orange",
 			trigger: (ball, block) => {
 				//Crash Sound
 				kometsound.play();
