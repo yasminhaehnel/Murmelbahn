@@ -459,9 +459,9 @@ function setup() {
 		world,
 		{
 			x: 500,
-			y: 250,
-			w: 165,
-			h: 20,
+			y: 100,
+			w: 5,
+			h: 5,
 			trigger: (ball, block) => {
 				//Backgroundsound abspielen
 				pilzsound.play();
