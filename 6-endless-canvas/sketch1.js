@@ -141,10 +141,10 @@ function setup() {
 					y: -0.1,
 				});
 				setTimeout(() => {
-					console.log("removed")
-					blocks.filter(block => block != komet)
-					Matter.World.remove(world, block.body)
-				}, 1000)
+					console.log("removed");
+					blocks.filter((block) => block != komet);
+					Matter.World.remove(world, block.body);
+				}, 1000);
 			},
 		},
 		{
@@ -240,8 +240,8 @@ function setup() {
 		new Block(
 			world,
 			{
-				x: 3590,
-				y: 240,
+				x: 3720,
+				y: 255,
 				w: 70,
 				h: 20,
 				//color: "red",
@@ -258,7 +258,7 @@ function setup() {
 			world,
 			{
 				x: 4500,
-				y: 290,
+				y: 295,
 				w: 70,
 				h: 20,
 				//color: "red",
