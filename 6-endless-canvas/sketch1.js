@@ -37,7 +37,6 @@ let swarmHistory = [];
 let hgWolken;
 let hgBerge;
 let vg;
-let platform;
 
 function preload() {
 	backgroundSound = loadSound("Background-Sound-Murmelbahn.mp3");
@@ -62,20 +61,6 @@ function setup() {
 
 	engine = Engine.create();
 	world = engine.world;
-//Platform für Ballon
-	platform = new Block(
-		world,
-		{
-		  x: 400, // Anpassen Sie die x-Position entsprechend Ihrer Szene
-		  y: 400, // Anpassen Sie die y-Position entsprechend Ihrer Szene
-		  w: 100, // Breite der Plattform
-		  h: 20,  // Höhe der Plattform
-		  color: "green", // Farbe der Plattform
-		},
-		{
-		  isStatic: true,
-		}
-	  );
 
 	new BlocksFromSVG(world, "Achterbahn-Strecke.svg", blocks, {
 		isStatic: true,
@@ -148,13 +133,18 @@ function setup() {
 			color: "red",
 			trigger: (ball, block) => {
 				Matter.Body.applyForce(ball.body, ball.body.position, {
-					x: -0.3,
+					x: -0.15,
 					y: 0.0,
 				});
 				Matter.Body.applyForce(block.body, block.body.position, {
-					x: 0.2,
-					y: 0.0,
+					x: 0.09,
+					y: -0.1,
 				});
+				setTimeout(() => {
+					console.log("removed")
+					blocks.filter(block => block != komet)
+					Matter.World.remove(world, block.body)
+				}, 1000)
 			},
 		},
 		{
@@ -720,8 +710,6 @@ let lastPos = { x: 0, y: 0 };
 
 function draw() {
 	clear();
-
-	platform.draw();
 
 	lastPos = { ...murmel.body.position };
 	lastPos = { ...murmel.body.position };
