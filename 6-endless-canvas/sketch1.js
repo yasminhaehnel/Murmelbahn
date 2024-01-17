@@ -18,6 +18,8 @@ let isDrag = false;
 let blocks = [];
 let murmel;
 let komet;
+let ground;
+
 let trampolinA;
 let trampolinB;
 let trampolinC;
@@ -66,13 +68,13 @@ function setup() {
 	console.log("OK");
 	//new BlocksFromSVG(world, "Heißluftballon.svg", blocks, { isStatic: true });
 
-	// the ball has a label and can react on collisions
+	// Mond
 	murmel = new Ball(
 		world,
 		{ x: 235, y: 100, r: 40, image: Mond },
 		{
 			label: "Murmel",
-			density: 0.005,
+			density: 0.01,
 			restitution: 0.25,
 			friction: 0.5,
 			frictionAir: 0.0,
@@ -84,34 +86,16 @@ function setup() {
 	);
 	blocks.push(murmel);
 
-	//Komet
-	komet = new Ball(
-		world,
-		{ x: 550, y: 20, r: 20, color: "red" },
-		{
-			label: "Komet",
-			isStatic: true,
-			// density: 0.005,
-			// restitution: 0.25,
-			// friction: 0.5,
-			// frictionAir: 0.0,
-			// collisionFilter: {
-			// 	category: 0b0001,
-			// 	mask: 0b0001,
-			// },
-		}
-	);
-	blocks.push(komet);
-
-	// the box triggers a function on collisions
+	// Mond Halterung
 	blocks.push(
 		new Block(
 			world,
 			{
-				x: 250,
-				y: 180,
+				x: 240,
+				y: 140,
 				w: 50,
 				h: 30,
+				color: "red",
 				trigger: (ball, block) => {
 					//Backgroundsound abspielen
 					backgroundSound.play();
@@ -128,6 +112,42 @@ function setup() {
 			}
 		)
 	);
+
+	//Komet Strecke
+	ground = new Block(
+		world,
+		{ x: 440, y: 80, w: 480, h: 15, color: "orange" },
+		{
+			isStatic: true,
+			angle: PI / -10,
+		}
+	);
+
+	//Komet
+	komet = new Ball(
+		world,
+		{
+			x: 550,
+			y: 20,
+			r: 20,
+			color: "red",
+			trigger: (ball, block) => {
+				Matter.Body.applyForce(ball.body, ball.body.position, {
+					x: -0.3,
+					y: 0.0,
+				});
+				Matter.Body.applyForce(block.body, block.body.position, {
+					x: 0.2,
+					y: 0.0,
+				});
+				Matter.Body.setDensity(ball.body, 0.019);
+			},
+		},
+		{
+			xlabel: "Murmel",
+		}
+	);
+	blocks.push(komet);
 
 	// //Block mit Murmel wird schwerer
 	// blocks.push(
@@ -585,18 +605,6 @@ let lastPos = { x: 0, y: 0 };
 function draw() {
 	clear();
 
-	//Sound bei Spacetaste
-	// if (
-	// 	lastPos.x - murmel.body.position.x > 1 ||
-	// 	lastPos.y - murmel.body.position.y > 1
-	// ) {
-	// 	backgroundSound.play();
-	// 	console.log("PLAY");
-	// } else {
-	// 	backgroundSound.stop();
-	// 	console.log("STOP");
-	// }
-
 	lastPos = { ...murmel.body.position };
 	lastPos = { ...murmel.body.position };
 	// position canvas and translate coordinates
@@ -633,4 +641,6 @@ function draw() {
 	translate(off.x, 0);
 
 	Engine.update(engine);
+
+	ground.draw();
 }
