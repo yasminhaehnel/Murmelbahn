@@ -141,9 +141,10 @@ function setup() {
 					y: -0.05,
 				});
 				setTimeout(() => {
-					console.log("removed");
+					console.log("removed", blocks.length);
 					blocks = blocks.filter(block => block != komet);
 					Matter.World.remove(world, block.body);
+					console.log("removed", blocks.length)
 				}, 1000);
 			},
 		},
