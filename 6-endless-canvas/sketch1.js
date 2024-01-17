@@ -140,7 +140,6 @@ function setup() {
 					x: 0.2,
 					y: 0.0,
 				});
-				
 			},
 		},
 		{
@@ -447,6 +446,108 @@ function setup() {
 		{ isStatic: true, restitution: 1.3 }
 	);
 
+	//Karusell///////////////////////////////////////////////////////////
+	//Schaukel_1
+	swingStiff = new Polygon(world, {
+		x: 4900,
+		y: 120,
+		s: 4,
+		r: 60,
+		color: "red",
+	});
+	swingStiff.constrainTo(null, {
+		pointA: { x: -40, y: 10 },
+		length: 350,
+		stiffness: 0.001,
+		damping: 0.005,
+		color: "red",
+		draw: true,
+	});
+	swingStiff.constrainTo(null, {
+		pointA: { x: 40, y: 10 },
+		length: 350,
+		stiffness: 0.001,
+		damping: 0.005,
+		color: "red",
+		draw: true,
+	});
+
+	//Schaukel_2
+	swingStiff2 = new Polygon(world, {
+		x: 5000,
+		y: 120,
+		s: 4,
+		r: 60,
+		color: "red",
+	});
+	swingStiff2.constrainTo(null, {
+		pointA: { x: -40, y: 10 },
+		length: 350,
+		stiffness: 0.001,
+		damping: 0.005,
+		color: "red",
+		draw: true,
+	});
+	swingStiff2.constrainTo(null, {
+		pointA: { x: 40, y: 10 },
+		length: 350,
+		stiffness: 0.001,
+		damping: 0.005,
+		color: "red",
+		draw: true,
+	});
+
+	//Schaukel_3
+	swingStiff3 = new Polygon(world, {
+		x: 5100,
+		y: 120,
+		s: 4,
+		r: 60,
+		color: "red",
+	});
+	swingStiff3.constrainTo(null, {
+		pointA: { x: -40, y: 10 },
+		length: 350,
+		stiffness: 0.001,
+		damping: 0.005,
+		color: "red",
+		draw: true,
+	});
+	swingStiff3.constrainTo(null, {
+		pointA: { x: 40, y: 10 },
+		length: 350,
+		stiffness: 0.001,
+		damping: 0.005,
+		color: "red",
+		draw: true,
+	});
+
+	//Schaukel4
+	swingStiff4 = new Polygon(world, {
+		x: 5200,
+		y: 120,
+		s: 4,
+		r: 60,
+		color: "red",
+	});
+	swingStiff4.constrainTo(null, {
+		pointA: { x: -40, y: 10 },
+		length: 350,
+		stiffness: 0.001,
+		damping: 0.005,
+		color: "red",
+		draw: true,
+	});
+	swingStiff4.constrainTo(null, {
+		pointA: { x: 40, y: 10 },
+		length: 350,
+		stiffness: 0.001,
+		damping: 0.005,
+		color: "red",
+		draw: true,
+	});
+	/////////////////////////////////////////////////////////////////////////
+
 	// add a mouse so that we can manipulate Matter objects
 	mouse = new Mouse(engine, canvas, { stroke: "blue", strokeWeight: 3 });
 
@@ -633,6 +734,12 @@ function draw() {
 	trampolinB.draw();
 	trampolinC.draw();
 	trampolinD.draw();
+
+	//Karusell
+	swingStiff.draw();
+	swingStiff2.draw();
+	swingStiff3.draw();
+	swingStiff4.draw();
 
 	ground.draw();
 
