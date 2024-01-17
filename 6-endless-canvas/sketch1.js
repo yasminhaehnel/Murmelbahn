@@ -140,7 +140,7 @@ function setup() {
 					x: 0.2,
 					y: 0.0,
 				});
-				Matter.Body.setDensity(ball.body, 0.2);
+				
 			},
 		},
 		{
