@@ -21,6 +21,10 @@ let murmel;
 let komet;
 let ground;
 
+let riesenrad;
+let angle = 0;
+let swingStiff;
+
 let trampolinA;
 let trampolinB;
 let trampolinC;
@@ -174,6 +178,35 @@ function setup() {
 		}
 	);
 	blocks.push(komet);
+
+	// Riesenrad
+	riesenrad = new Ball(
+		world,
+		{ x: 1300, y: 300, r: 250, stroke: "white", strokeWeight: 2.5 },
+		{ isStatic: true, angle: angle }
+	);
+
+	/////////////////
+	// Gondel Riesenrad
+	swingStiff = new Polygon(world, {
+		x: 1300,
+		y: 100,
+		s: 0,
+		r: 30,
+		color: "white",
+	});
+	swingStiff.constrainTo(null, {
+		//pointA: { x: -10, y: -20 },
+		pointA: {
+			x: Math.sin((0 * PI) / 4) * 250,
+			y: Math.sin((0 * PI) / 4) * 250,
+			color: "red",
+			length: 80,
+			draw: true,
+		},
+	});
+	blocks.push(swingStiff);
+	/////////////////
 
 	// the box triggers a function on collisions, hier wird die Murmel geschubst und erstellt
 	blocks.push(
@@ -932,6 +965,16 @@ function draw() {
 	swingStiff3.draw();
 	swingStiff4.draw();
 
+	//Riesenrad
+	Matter.Body.setAngle(riesenrad.body, angle);
+	Matter.Body.setAngularVelocity(riesenrad.body, 0.15);
+	angle += 0.01;
+	riesenrad.draw();
+	//Gondel Riesenrad
+	swingStiff.draw();
+	swingStiff.drawConstraints();
+
+	//Fläche für Komet
 	ground.draw();
 
 	hgWolken.position(off.x * 0, 0);
