@@ -43,6 +43,7 @@ let off = { x: 0, y: 0 };
 let Heißluftballon;
 let Mond;
 let Stern;
+let Komet;
 let sparkleTrail = [];
 let swarmHistory = [];
 
@@ -60,6 +61,7 @@ function preload() {
 	Stern = loadImage("Stern.png");
 	Pilz1 = loadImage("Pilz1.png");
 	Pilz2 = loadImage("Pilz2.png");
+	Komet = loadImage("Komet.png");
 }
 
 // das ist die Dimension des kompletten Levels
@@ -155,7 +157,10 @@ function setup() {
 			x: 550,
 			y: 20,
 			r: 20,
-			color: "red",
+			//color: "red",
+			image: Komet,
+			isStatic: true,
+			scale: 0.3,
 			trigger: (ball, block) => {
 				Matter.Body.applyForce(ball.body, ball.body.position, {
 					x: -0.15,
@@ -416,7 +421,7 @@ function setup() {
 				y: 520,
 				w: 10,
 				h: 200,
-				color: "red",
+				//color: "red",
 			},
 			{
 				isStatic: true,
@@ -436,9 +441,10 @@ function setup() {
 				//Backgroundsound abspielen
 				pilzsound.play();
 			},
-			color: "green",
+			//color: "green",
 			offset: { x: 0, y: 47 },
 			image: Pilz1,
+			scale: 0.3,
 		},
 		{ isStatic: true, restitution: 1.3 }
 	);
@@ -455,9 +461,10 @@ function setup() {
 				//Backgroundsound abspielen
 				pilzsound.play();
 			},
-			color: "red",
+			//color: "red",
 			offset: { x: 0, y: 27 },
 			image: Pilz2,
+			scale: 0.3,
 		},
 		{ isStatic: true, restitution: 1.3 }
 	);
@@ -474,9 +481,10 @@ function setup() {
 				//Backgroundsound abspielen
 				pilzsound.play();
 			},
-			color: "orange",
+			//color: "orange",
 			offset: { x: 0, y: 26 },
 			image: Pilz2,
+			scale: 0.3,
 		},
 		{ isStatic: true, restitution: 1.3 }
 	);
@@ -493,9 +501,10 @@ function setup() {
 				//Backgroundsound abspielen
 				pilzsound.play();
 			},
-			color: "blue",
+			//color: "blue",
 			offset: { x: 0, y: 47 },
 			image: Pilz1,
+			scale: 0.3,
 		},
 		{ isStatic: true, restitution: 1.3 }
 	);
@@ -512,9 +521,10 @@ function setup() {
 				//Backgroundsound abspielen
 				pilzsound.play();
 			},
-			color: "orange",
+			//color: "orange",
 			offset: { x: 0, y: 26 },
 			image: Pilz2,
+			scale: 0.3,
 		},
 		{ isStatic: true, restitution: 0.9 }
 	);
@@ -531,9 +541,10 @@ function setup() {
 				//Backgroundsound abspielen
 				pilzsound.play();
 			},
-			color: "blue",
+			//color: "blue",
 			offset: { x: 0, y: 47 },
 			image: Pilz1,
+			scale: 0.3,
 		},
 		{ isStatic: true, restitution: 0.9 }
 	);
@@ -550,9 +561,10 @@ function setup() {
 				//Backgroundsound abspielen
 				pilzsound.play();
 			},
-			color: "blue",
+			//color: "blue",
 			offset: { x: 0, y: 47 },
 			image: Pilz1,
+			scale: 0.3,
 		},
 		{ isStatic: true, restitution: 0.9 }
 	);
@@ -568,9 +580,10 @@ function setup() {
 				//Backgroundsound abspielen
 				pilzsound.play();
 			},
-			color: "orange",
+			//color: "orange",
 			offset: { x: 0, y: 26 },
 			image: Pilz2,
+			scale: 0.3,
 		},
 		{ isStatic: true, restitution: 0.9 }
 	);
@@ -586,9 +599,10 @@ function setup() {
 				//Backgroundsound abspielen
 				pilzsound.play();
 			},
-			color: "blue",
+			//color: "blue",
 			offset: { x: 0, y: 47 },
 			image: Pilz1,
+			scale: 0.3,
 		},
 		{ isStatic: true, restitution: 0.9 }
 	);
@@ -604,9 +618,10 @@ function setup() {
 				//Backgroundsound abspielen
 				pilzsound.play();
 			},
-			color: "orange",
+			//color: "orange",
 			offset: { x: 0, y: 26 },
 			image: Pilz2,
+			scale: 0.3,
 		},
 		{ isStatic: true, restitution: 0.9 }
 	);
@@ -622,9 +637,10 @@ function setup() {
 				//Backgroundsound abspielen
 				pilzsound.play();
 			},
-			color: "blue",
+			//color: "blue",
 			offset: { x: 0, y: 47 },
 			image: Pilz1,
+			scale: 0.3,
 		},
 		{ isStatic: true, restitution: 0.9 }
 	);
@@ -637,7 +653,7 @@ function setup() {
 			y: 470,
 			w: 5,
 			h: 5,
-			color: "blue",
+			//color: "blue",
 			offset: { x: 0, y: 47 },
 			image: Heißluftballon,
 			scale: 0.3,
