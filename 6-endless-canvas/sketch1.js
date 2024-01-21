@@ -650,13 +650,13 @@ function setup() {
 		world,
 		{
 			x: 8500,
-			y: 470,
+			y: 280,
 			w: 5,
 			h: 5,
 			//color: "blue",
 			offset: { x: 0, y: 47 },
 			image: Heißluftballon,
-			scale: 0.3,
+			scale: 0.6,
 		},
 		{ isStatic: true }
 	);
