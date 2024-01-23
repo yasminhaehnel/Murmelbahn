@@ -62,6 +62,9 @@ function preload() {
 	Pilz1 = loadImage("Pilz1.png");
 	Pilz2 = loadImage("Pilz2.png");
 	Komet = loadImage("Komet.png");
+	Karusellschaukel = loadImage("Karusellschaukel.png");
+	Sitzhinten = loadImage("Sitzhinten.png");
+	Sitzseite = loadImage("Sitzseite.png");
 }
 
 // das ist die Dimension des kompletten Levels
@@ -671,100 +674,112 @@ function setup() {
 	//Schaukel_1
 	swingStiff = new Block(world, {
 		x: 4870,
-		y: 110,
+		y: 185,
 		w: 100,
 		h: 40,
-		color: "white",
+		//color: "white",
+		image: Karusellschaukel,
+		offset: { x: 0, y: -10 },
+		scale: 1.06,
 	});
 	swingStiff.constrainTo(null, {
 		pointA: { x: -48, y: 0 },
-		length: 320,
+		length: 250,
 		stiffness: 0.05,
-		damping: 0.8,
-		color: "white",
+		damping: 0.2,
+		color: "#14A39A",
 		draw: true,
 	});
 	swingStiff.constrainTo(null, {
 		pointA: { x: 48, y: 0 },
-		length: 320,
+		length: 250,
 		stiffness: 0.05,
-		damping: 0.8,
-		color: "white",
+		damping: 0.2,
+		color: "#14A39A",
 		draw: true,
 	});
 
 	//Schaukel_2
 	swingStiff2 = new Block(world, {
 		x: 5040,
-		y: 110,
-		w: 100,
+		y: 185,
+		w: 80,
 		h: 40,
-		color: "white",
+		//color: "white",
+		image: Sitzseite,
+		offset: { x: 5, y: -10 },
+		scale: 1.1,
 	});
 	swingStiff2.constrainTo(null, {
-		pointA: { x: -48, y: 0 },
-		length: 350,
-		stiffness: 0.1,
-		damping: 0.8,
-		color: "white",
+		pointA: { x: -40, y: 0 },
+		length: 320,
+		stiffness: 0.05,
+		damping: 0.2,
+		color: "#14A39A",
 		draw: true,
 	});
 	swingStiff2.constrainTo(null, {
-		pointA: { x: 48, y: 0 },
-		length: 350,
-		stiffness: 0.1,
-		damping: 0.8,
-		color: "white",
+		pointA: { x: 40, y: 0 },
+		length: 320,
+		stiffness: 0.05,
+		damping: 0.2,
+		color: "#14A39A",
 		draw: true,
 	});
 
 	//Schaukel_3
 	swingStiff3 = new Block(world, {
 		x: 5210,
-		y: 110,
-		w: 100,
+		y: 185,
+		w: 80,
 		h: 40,
-		color: "white",
+		//color: "white",
+		image: Sitzseite,
+		offset: { x: 5, y: -10 },
+		scale: 1.06,
 	});
 	swingStiff3.constrainTo(null, {
-		pointA: { x: -48, y: 0 },
-		length: 350,
-		stiffness: 0.1,
-		damping: 0.8,
-		color: "white",
+		pointA: { x: -40, y: 0 },
+		length: 320,
+		stiffness: 0.05,
+		damping: 0.2,
+		color: "#14A39A",
 		draw: true,
 	});
 	swingStiff3.constrainTo(null, {
-		pointA: { x: 48, y: 0 },
-		length: 350,
-		stiffness: 0.1,
-		damping: 0.8,
-		color: "white",
+		pointA: { x: 40, y: 0 },
+		length: 320,
+		stiffness: 0.05,
+		damping: 0.2,
+		color: "#14A39A",
 		draw: true,
 	});
 
 	//Schaukel4
 	swingStiff4 = new Block(world, {
 		x: 5380,
-		y: 110,
+		y: 185,
 		w: 100,
 		h: 40,
-		color: "white",
+		//color: "white",
+		image: Sitzhinten,
+		offset: { x: 0, y: -10 },
+		scale: 1.06,
 	});
 	swingStiff4.constrainTo(null, {
 		pointA: { x: -48, y: 0 },
-		length: 320,
-		stiffness: 0.1,
-		damping: 0.8,
-		color: "white",
+		length: 250,
+		stiffness: 0.05,
+		damping: 0.2,
+		color: "#14A39A",
 		draw: true,
 	});
 	swingStiff4.constrainTo(null, {
 		pointA: { x: 48, y: 0 },
-		length: 320,
-		stiffness: 0.1,
-		damping: 0.8,
-		color: "white",
+		length: 250,
+		stiffness: 0.05,
+		damping: 0.2,
+		color: "#14A39A",
 		draw: true,
 	});
 	/////////////////////////////////////////////////////////////////////////
