@@ -230,7 +230,7 @@ function setup() {
 
 				trigger: (ball, block) => {
 					Matter.Body.applyForce(ball.body, ball.body.position, {
-						x: 2.5,
+						x: 2.3,
 						y: 0.0,
 					}); //hier wird die Murmel geschubst
 					const velocityMultiplier = 2; // Du kannst den Multiplikator anpassen, um die Geschwindigkeit zu ändern
@@ -267,7 +267,7 @@ function setup() {
 
 				trigger: (ball, block) => {
 					Matter.Body.applyForce(ball.body, ball.body.position, {
-						x: 2.5,
+						x: 2,
 						y: 0.0,
 					}); //hier wird die Murmel geschubst
 					const velocityMultiplier = 2; // Du kannst den Multiplikator anpassen, um die Geschwindigkeit zu ändern
@@ -304,7 +304,7 @@ function setup() {
 
 				trigger: (ball, block) => {
 					Matter.Body.applyForce(ball.body, ball.body.position, {
-						x: 2.5,
+						x: 2,
 						y: 0.0,
 					}); //hier wird die Murmel geschubst
 					const velocityMultiplier = 2; // Du kannst den Multiplikator anpassen, um die Geschwindigkeit zu ändern
@@ -499,6 +499,23 @@ function setup() {
 				w: 10,
 				h: 200,
 				//color: "red",
+			},
+			{
+				isStatic: true,
+			}
+		)
+	);
+
+	//Wand Ende
+	blocks.push(
+		new Block(
+			world,
+			{
+				x: 12600,
+				y: 400,
+				w: 30,
+				h: 800,
+				//color: "blue",
 			},
 			{
 				isStatic: true,
@@ -727,16 +744,21 @@ function setup() {
 		world,
 		{
 			x: 8500,
-			y: 280,
-			w: 5,
-			h: 5,
+			y: 540,
+			w: 300,
+			h: 100,
+			trigger: (ball, block) => {
+				//Backgroundsound abspielen
+				pilzsound.play();
+			},
 			//color: "blue",
-			offset: { x: 0, y: 47 },
+			offset: { x: 0, y: -120 },
 			image: Heißluftballon,
 			scale: 0.6,
 		},
-		{ isStatic: true }
+		{ isStatic: true, restitution: 2.5 }
 	);
+
 	blocks.push(ballon);
 	function update() {
 		blocks.forEach((block) => {
