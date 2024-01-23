@@ -69,7 +69,7 @@ function preload() {
 }
 
 // das ist die Dimension des kompletten Levels
-const dim = { w: 13000, h: 720 };
+const dim = { w: 12963, h: 720 };
 
 function setup() {
 	let canvas = createCanvas(windowWidth, windowHeight);
