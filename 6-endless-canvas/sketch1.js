@@ -65,6 +65,7 @@ function preload() {
 	Karusellschaukel = loadImage("Karusellschaukel.png");
 	Sitzhinten = loadImage("Sitzhinten.png");
 	Sitzseite = loadImage("Sitzseite.png");
+	Waggons = loadImage("Waggons.png");
 }
 
 // das ist die Dimension des kompletten Levels
@@ -327,60 +328,44 @@ function setup() {
 		)
 	);
 
-	//Trigger BackgroundSound
+	//Waggon1 auf Achterbahn
 	blocks.push(
 		new Block(
 			world,
 			{
-				x: 2750,
-				y: 435,
-				w: 50,
-				h: 30,
-				trigger: (ball, block) => {
-					//Backgroundsound abspielen
-					backgroundSound.play();
-				},
-				//color: "yellow",
+				x: 3820,
+				y: 307,
+				w: 70,
+				h: 20,
+				//color: "red",
+				image: Waggons,
+				offset: { x: 0, y: -15 },
+			},
+			{
+				isStatic: true,
+				angle: Math.PI / 7,
+			}
+		)
+	);
+
+	//Waggon2 auf Achterbahn
+	blocks.push(
+		new Block(
+			world,
+			{
+				x: 4500,
+				y: 321,
+				w: 70,
+				h: 20,
+				//color: "red",
+				image: Waggons,
+				offset: { x: 0, y: -20 },
 			},
 			{
 				isStatic: true,
 			}
 		)
 	);
-
-	// //Waggon1 auf Achterbahn
-	// blocks.push(
-	// 	new Block(
-	// 		world,
-	// 		{
-	// 			x: 3720,
-	// 			y: 255,
-	// 			w: 70,
-	// 			h: 20,
-	// 			//color: "red",
-	// 		},
-	// 		{
-	// 			isStatic: true,
-	// 		}
-	// 	)
-	// );
-
-	// //Waggon2 auf Achterbahn
-	// blocks.push(
-	// 	new Block(
-	// 		world,
-	// 		{
-	// 			x: 4500,
-	// 			y: 295,
-	// 			w: 70,
-	// 			h: 20,
-	// 			//color: "red",
-	// 		},
-	// 		{
-	// 			isStatic: true,
-	// 		}
-	// 	)
-	// );
 
 	//Wände bei den ersten Pilzen
 	blocks.push(
@@ -1000,7 +985,7 @@ function setup() {
 				y: 215,
 				w: 300,
 				h: 50,
-				color: "yellow",
+				//color: "yellow",
 				trigger: (ball, block) => {
 					openLeft.body.collisionFilter.category = 0b0001;
 					openRight.body.collisionFilter.category = 0b0010;
@@ -1019,7 +1004,7 @@ function setup() {
 				y: 280,
 				w: 300,
 				h: 50,
-				color: "yellow",
+				//color: "yellow",
 				trigger: (ball, block) => {
 					openLeft2.body.collisionFilter.category = 0b0001;
 					openRight2.body.collisionFilter.category = 0b0010;
