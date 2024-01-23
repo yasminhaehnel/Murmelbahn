@@ -94,7 +94,7 @@ function setup() {
 		{ x: 235, y: 100, r: 40, image: Mond },
 		{
 			label: "Murmel",
-			density: 0.01,
+			density: 0.007,
 			restitution: 0.25,
 			friction: 0.5,
 			frictionAir: 0.0,
@@ -191,7 +191,7 @@ function setup() {
 	riesenrad = new Ball(
 		world,
 		{ x: 1300, y: 300, r: 250, stroke: "white", strokeWeight: 2.5 },
-		{ isStatic: true, angle: angle }
+		{ isStatic: true, angle: angle, isSensor: true }
 	);
 
 	/////////////////
@@ -216,7 +216,7 @@ function setup() {
 	blocks.push(swingStiff);
 	/////////////////
 
-	// the box triggers a function on collisions, hier wird die Murmel geschubst und erstellt
+	// Stern1, hier wird die Murmel geschubst und erstellt
 	blocks.push(
 		new Block(
 			world,
@@ -230,7 +230,81 @@ function setup() {
 
 				trigger: (ball, block) => {
 					Matter.Body.applyForce(ball.body, ball.body.position, {
-						x: 2,
+						x: 2.5,
+						y: 0.0,
+					}); //hier wird die Murmel geschubst
+					const velocityMultiplier = 2; // Du kannst den Multiplikator anpassen, um die Geschwindigkeit zu ändern
+					const currentVelocity = ball.body.velocity;
+					Matter.Body.setVelocity(ball.body, {
+						x: currentVelocity.x * velocityMultiplier,
+						y: currentVelocity.y * velocityMultiplier,
+					});
+					//GLitzersound abspielen
+					glitzersound.play();
+				},
+			},
+			{
+				isStatic: true,
+				isSensor: true,
+				// density: 0.05,
+				// restitution: 0.5,
+				// frictionAir: 0.01,
+			}
+		)
+	);
+
+	// Stern2, hier wird die Murmel geschubst und erstellt
+	blocks.push(
+		new Block(
+			world,
+			{
+				x: 5900,
+				y: 530,
+				w: 60,
+				h: 60,
+				image: Stern,
+				scale: 0.3,
+
+				trigger: (ball, block) => {
+					Matter.Body.applyForce(ball.body, ball.body.position, {
+						x: 2.5,
+						y: 0.0,
+					}); //hier wird die Murmel geschubst
+					const velocityMultiplier = 2; // Du kannst den Multiplikator anpassen, um die Geschwindigkeit zu ändern
+					const currentVelocity = ball.body.velocity;
+					Matter.Body.setVelocity(ball.body, {
+						x: currentVelocity.x * velocityMultiplier,
+						y: currentVelocity.y * velocityMultiplier,
+					});
+					//GLitzersound abspielen
+					glitzersound.play();
+				},
+			},
+			{
+				isStatic: true,
+				isSensor: true,
+				// density: 0.05,
+				// restitution: 0.5,
+				// frictionAir: 0.01,
+			}
+		)
+	);
+
+	// Stern3, hier wird die Murmel geschubst und erstellt
+	blocks.push(
+		new Block(
+			world,
+			{
+				x: 7100,
+				y: 490,
+				w: 60,
+				h: 60,
+				image: Stern,
+				scale: 0.3,
+
+				trigger: (ball, block) => {
+					Matter.Body.applyForce(ball.body, ball.body.position, {
+						x: 2.5,
 						y: 0.0,
 					}); //hier wird die Murmel geschubst
 					const velocityMultiplier = 2; // Du kannst den Multiplikator anpassen, um die Geschwindigkeit zu ändern
@@ -274,39 +348,39 @@ function setup() {
 		)
 	);
 
-	//Waggon1 auf Achterbahn
-	blocks.push(
-		new Block(
-			world,
-			{
-				x: 3720,
-				y: 255,
-				w: 70,
-				h: 20,
-				//color: "red",
-			},
-			{
-				isStatic: true,
-			}
-		)
-	);
+	// //Waggon1 auf Achterbahn
+	// blocks.push(
+	// 	new Block(
+	// 		world,
+	// 		{
+	// 			x: 3720,
+	// 			y: 255,
+	// 			w: 70,
+	// 			h: 20,
+	// 			//color: "red",
+	// 		},
+	// 		{
+	// 			isStatic: true,
+	// 		}
+	// 	)
+	// );
 
-	//Waggon2 auf Achterbahn
-	blocks.push(
-		new Block(
-			world,
-			{
-				x: 4500,
-				y: 295,
-				w: 70,
-				h: 20,
-				//color: "red",
-			},
-			{
-				isStatic: true,
-			}
-		)
-	);
+	// //Waggon2 auf Achterbahn
+	// blocks.push(
+	// 	new Block(
+	// 		world,
+	// 		{
+	// 			x: 4500,
+	// 			y: 295,
+	// 			w: 70,
+	// 			h: 20,
+	// 			//color: "red",
+	// 		},
+	// 		{
+	// 			isStatic: true,
+	// 		}
+	// 	)
+	// );
 
 	//Wände bei den ersten Pilzen
 	blocks.push(
@@ -826,8 +900,7 @@ function setup() {
 		world,
 		{
 			fromFile: "Achterbahn-Looping-links.svg",
-			color: "#C7C6B6",
-			stroke: "#C7C6B6", // hides the gaps
+			color: "red",
 			xweight: 0.0,
 		},
 		{
@@ -846,8 +919,7 @@ function setup() {
 		world,
 		{
 			fromFile: "Achterbahn-Looping-rechts.svg",
-			color: "#C7C6B6",
-			stroke: "#C7C6B6", // hides the gaps
+			color: "blue",
 		},
 		{
 			isStatic: true,
@@ -859,7 +931,45 @@ function setup() {
 	);
 	blocks.push(openRight);
 
-	// the box closes openLeft and opens openRight, hier wird getriggert
+	/////////////////////////////////////////////////////////////Looping2
+	//Looping linke seite2
+	const openLeft2 = new PolygonFromSVG(
+		world,
+		{
+			fromFile: "Achterbahn-Looping-links2.svg",
+			color: "red",
+			xweight: 0.0,
+		},
+		{
+			isStatic: true,
+			friction: 0.0,
+			collisionFilter: {
+				category: 0b0010,
+			},
+		}
+	);
+	blocks.push(openLeft2);
+	console.log(openLeft2);
+
+	//rechte seite Looping2
+	const openRight2 = new PolygonFromSVG(
+		world,
+		{
+			fromFile: "Achterbahn-Looping-rechts2.svg",
+			color: "blue",
+		},
+		{
+			isStatic: true,
+			friction: 0.0,
+			collisionFilter: {
+				category: 0b0001,
+			},
+		}
+	);
+	blocks.push(openRight2);
+	/////////////////////////////////////////////////////Ende Looping2
+
+	// Trigger für Looping1
 	blocks.push(
 		new BlockCore(
 			world,
@@ -868,7 +978,7 @@ function setup() {
 				y: 215,
 				w: 300,
 				h: 50,
-				//color: "yellow",
+				color: "yellow",
 				trigger: (ball, block) => {
 					openLeft.body.collisionFilter.category = 0b0001;
 					openRight.body.collisionFilter.category = 0b0010;
@@ -877,6 +987,26 @@ function setup() {
 			{ isStatic: true, isSensor: true }
 		)
 	);
+
+	//Trigger für Looping2
+	blocks.push(
+		new BlockCore(
+			world,
+			{
+				x: 7280,
+				y: 280,
+				w: 300,
+				h: 50,
+				color: "yellow",
+				trigger: (ball, block) => {
+					openLeft2.body.collisionFilter.category = 0b0001;
+					openRight2.body.collisionFilter.category = 0b0010;
+				},
+			},
+			{ isStatic: true, isSensor: true }
+		)
+	);
+
 	hgWolken = select("#sprite-foregroundWolken");
 	hgBerge = select("#sprite-background");
 	vg = select("#sprite-foreground");
@@ -947,7 +1077,6 @@ function draw() {
 	lastPos = { ...murmel.body.position };
 	// position canvas and translate coordinates
 	scrollEndless(murmel.body.position);
-
 
 	//Komet fällt gerade
 	Matter.Body.setAngle(komet.body, 0);
