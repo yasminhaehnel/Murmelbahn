@@ -136,7 +136,7 @@ function setup() {
 		{
 			x: 440,
 			y: 80,
-			w: 480,
+			w: 440,
 			h: 15,
 			//color: "orange",
 			trigger: (ball, block) => {
