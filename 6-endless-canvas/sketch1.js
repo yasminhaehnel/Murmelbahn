@@ -543,6 +543,23 @@ function setup() {
 		)
 	);
 
+	//Wand über Looping2
+	blocks.push(
+		new Block(
+			world,
+			{
+				x: 7250,
+				y: 80,
+				w: 10,
+				h: 150,
+				//color: "blue",
+			},
+			{
+				isStatic: true,
+			}
+		)
+	);
+
 	//Wände beim Karussel/Pilze
 
 	blocks.push(
@@ -602,6 +619,39 @@ function setup() {
 				y: 400,
 				w: 30,
 				h: 800,
+				//color: "blue",
+			},
+			{
+				isStatic: true,
+			}
+		)
+	);
+
+	//Wand2 Ende
+	blocks.push(
+		new Block(
+			world,
+			{
+				x: 12400,
+				y: 730,
+				w: 400,
+				h: 30,
+				//color: "blue",
+			},
+			{
+				isStatic: true,
+			}
+		)
+	);
+	//Wand3 Ende
+	blocks.push(
+		new Block(
+			world,
+			{
+				x: 12250,
+				y: 600,
+				w: 30,
+				h: 150,
 				//color: "blue",
 			},
 			{
@@ -831,7 +881,7 @@ function setup() {
 		world,
 		{
 			x: 8500,
-			y: 540,
+			y: 490,
 			w: 300,
 			h: 20,
 			trigger: (ball, block) => {
@@ -839,9 +889,9 @@ function setup() {
 				// pilzsound.play();
 			},
 			//color: "blue",
-			offset: { x: 0, y: -120 },
+			offset: { x: 0, y: -90 },
 			image: Heißluftballon,
-			scale: 0.6,
+			scale: 0.75,
 		},
 		{ isStatic: true, restitution: 2.5 }
 	);
