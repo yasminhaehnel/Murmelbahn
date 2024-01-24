@@ -161,7 +161,7 @@ function setup() {
 			h: 15,
 			//color: "orange",
 			trigger: (ball, block) => {
-				//Crash Sound
+				//Backgroundsound abspielen
 				kometsound.play();
 			},
 		},
