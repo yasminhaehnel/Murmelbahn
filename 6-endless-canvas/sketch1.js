@@ -32,7 +32,7 @@ let angle = 0;
 let swingStiff;
 let polyConnectedA;
 let polyConnectedB;
-let radius = 250;
+let radius = 200;
 let gondel;
 
 let trampolinA;
@@ -224,13 +224,13 @@ function setup() {
 	//Riesenrad
 	riesenrad = new Ball(
 		world,
-		{ x: 1300, y: 300, r: radius, stroke: "white", strokeWeight: 2.5 },
+		{ x: 10280, y: 250, r: radius, stroke: "white", strokeWeight: 2.5 },
 		{ isStatic: false, isSensor: true }
 	);
 
 	blocks.push(riesenrad);
 	riesenrad.constrainTo(null, {
-		pointB: { x: 1300, y: 300 },
+		pointB: { x: 10280, y: 250 },
 		stiffness: 1.0,
 		draw: true,
 		//color: "yellow",
@@ -244,7 +244,7 @@ function setup() {
 
 		gondel = new Block(
 			world,
-			{ x: 1300 + x, y: 350 + y, w: 50, h: 30, color: "white" },
+			{ x: 10280 + x, y: 350 + y, w: 50, h: 50, color: "white" },
 			{ isStatic: false }
 		);
 		blocks.push(gondel);
@@ -252,8 +252,9 @@ function setup() {
 		gondel.constrainTo(riesenrad, {
 			pointA: { x: 0, y: -10 },
 			pointB: { x: x, y: y },
-			// length: 50,
-			stiffness: 0.0,
+			length: 10,
+			stiffness: 1.0,
+			damping: 0.9,
 			draw: true,
 		});
 	}
