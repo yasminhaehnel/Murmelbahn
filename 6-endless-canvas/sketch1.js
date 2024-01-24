@@ -112,9 +112,9 @@ function setup() {
 		{ x: 235, y: 100, r: 40, image: Mond },
 		{
 			label: "Murmel",
-			density: 0.008,
+			density: 0.009,
 			restitution: 0.25,
-			friction: 0.5,
+			friction: 0.9,
 			frictionAir: 0.0,
 			collisionFilter: {
 				category: 0b0001,
@@ -243,8 +243,8 @@ function setup() {
 			{
 				x: 10280 + x,
 				y: 350 + y,
-				w: 60,
-				h: 60,
+				w: 55,
+				h: 55,
 				//color: "white",
 				image: GondelRad,
 				scale: 0.3,
@@ -970,27 +970,6 @@ function setup() {
 	// add a mouse so that we can manipulate Matter objects
 	mouse = new Mouse(engine, canvas, { stroke: "blue", strokeWeight: 3 });
 
-	// process mouseup events in order to drag objects or add more balls
-	mouse.on("startdrag", (evt) => {
-		isDrag = true;
-	});
-	mouse.on("mouseup", (evt) => {
-		if (!isDrag) {
-			let ball = new Ball(
-				world,
-				{
-					x: off.x + evt.mouse.position.x,
-					y: off.y + evt.mouse.position.y,
-					r: 15,
-					color: "yellow",
-				},
-				{ isStatic: false, restitution: 0.9, label: "Murmel" }
-			);
-			blocks.push(ball);
-		}
-		isDrag = false;
-	});
-
 	// process collisions - check whether block "Murmel" hits another Block
 	Events.on(engine, "collisionStart", function (event) {
 		var pairs = event.pairs;
@@ -1122,9 +1101,9 @@ function setup() {
 			world,
 			{
 				x: 10030,
-				y: 490,
+				y: 400,
 				w: 100,
-				h: 30,
+				h: 700,
 				//color: "red",
 				trigger: (ball, block) => {
 					//Backgroundsound abspielen
@@ -1136,6 +1115,7 @@ function setup() {
 			},
 			{
 				isStatic: true,
+				isSensor: true,
 			}
 		)
 	);
@@ -1145,9 +1125,9 @@ function setup() {
 		new Block(
 			world,
 			{
-				x: 12350,
-				y: 500,
-				w: 50,
+				x: 12500,
+				y: 550,
+				w: 800,
 				h: 30,
 				//color: "red",
 				trigger: (ball, block) => {
@@ -1160,24 +1140,11 @@ function setup() {
 			},
 			{
 				isStatic: true,
+				isSensor: true,
 			}
 		)
 	);
 
-	// ///////////// Wasser
-	// blocks.push(
-	// 	new Block(
-	// 		world,
-	// 		{
-	// 			x: 13100,
-	// 			y: 100,
-	// 			w: 60,
-	// 			h: 60,
-	// 			image: Wasserfall,
-	// 			scale: 0.1,
-	// 		 }
-	// 	)
-	// );
 	//Plattform für Wasserfall 1
 	Wasserfall1 = new Block(
 		world,
@@ -1186,12 +1153,6 @@ function setup() {
 			y: 510,
 			w: 60,
 			h: 60,
-			//trigger: (ball, block) => {
-			//Backgroundsound abspielen
-			// pilzsound.play();
-			//},
-			//color: "blue",
-			//offset: { x: 0, y: -120 },
 			image: Wasserfall,
 			scale: 0.1,
 		},
@@ -1212,12 +1173,6 @@ function setup() {
 			y: 510,
 			w: 60,
 			h: 60,
-			//trigger: (ball, block) => {
-			//Backgroundsound abspielen
-			// pilzsound.play();
-			//},
-			//color: "blue",
-			//offset: { x: 0, y: -120 },
 			image: Wasserfall,
 			scale: 0.07,
 		},
@@ -1238,12 +1193,6 @@ function setup() {
 			y: 510,
 			w: 60,
 			h: 60,
-			//trigger: (ball, block) => {
-			//Backgroundsound abspielen
-			// pilzsound.play();
-			//},
-			//color: "blue",
-			//offset: { x: 0, y: -120 },
 			image: Wasserfall,
 			scale: 0.08,
 		},
@@ -1264,12 +1213,6 @@ function setup() {
 			y: 510,
 			w: 60,
 			h: 60,
-			//trigger: (ball, block) => {
-			//Backgroundsound abspielen
-			// pilzsound.play();
-			//},
-			//color: "blue",
-			//offset: { x: 0, y: -120 },
 			image: Wasserfall,
 			scale: 0.1,
 		},
@@ -1454,13 +1397,7 @@ function draw() {
 	Matter.Body.setAngle(riesenrad.body, angle);
 	// Matter.Body.setAngularVelocity(riesenrad.body, 0.15);
 	angle += 0.01;
-	riesenrad.draw();
 	gondel.draw();
-	// polyConnectedA.drawConstraints();
-
-	//Gondel Riesenrad
-	// swingStiff.draw();
-	// swingStiff.drawConstraints();
 
 	//Fläche für Komet
 	ground.draw();
@@ -1471,5 +1408,5 @@ function draw() {
 
 	translate(off.x, 0);
 
-	Engine.update(engine);
+	// Engine.update(engine);
 }
