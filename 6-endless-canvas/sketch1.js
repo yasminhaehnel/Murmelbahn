@@ -54,6 +54,9 @@ let hgWolken;
 let hgBerge;
 let vg;
 
+let polyConnectedA;
+let polyConnectedB;
+
 function preload() {
 	backgroundSound = loadSound("Background-Sound-Murmelbahn.mp3");
 	glitzersound = loadSound("Fairy Glitter.wav");
@@ -207,24 +210,13 @@ function setup() {
 
 	/////////////////
 	// Gondel Riesenrad
-	swingStiff = new Polygon(world, {
-		x: 1300,
-		y: 100,
-		s: 0,
-		r: 30,
-		color: "white",
-	});
-	swingStiff.constrainTo(null, {
-		//pointA: { x: -10, y: -20 },
-		pointA: {
-			x: Math.sin((0 * PI) / 4) * 250,
-			y: Math.sin((0 * PI) / 4) * 250,
-			color: "red",
-			length: 80,
-			draw: true,
-		},
-	});
-	blocks.push(swingStiff);
+	polyConnectedA = new Ball(world,
+		{ x: 1300, y: 300, r: 250, stroke: "white", strokeWeight: 2.5 },
+		{ isStatic: true, angle: angle, isSensor: true }
+	);
+	  polyConnectedB = new Ball(world, {x: 1500, y: 300, s: 0, r: 20, color: 'white'}, {isStatic: false});
+	//   polyConnectedB = new Ball(world, {x: Math.sin(0 * PI / 4) * 250, y: Math.sin(0 * PI/ 4), s: 0, r: 20, color: 'white'});
+	  polyConnectedB.constrainTo(polyConnectedA, { pointA: {x:0, y:-20}, pointB: {x:200, y:-20}, length: 10, stiffness: 0.0, draw: true });
 	/////////////////
 
 	// Stern1, hier wird die Murmel geschubst und erstellt
@@ -1235,13 +1227,16 @@ function draw() {
 	swingStiff4.draw();
 
 	//Riesenrad
-	Matter.Body.setAngle(riesenrad.body, angle);
-	Matter.Body.setAngularVelocity(riesenrad.body, 0.15);
-	angle += 0.01;
-	riesenrad.draw();
+	Matter.Body.setAngle(polyConnectedA.body, angle);
+    Matter.Body.setAngularVelocity(polyConnectedA.body, 0.15);
+    angle += 0.01;
+    polyConnectedA.draw();
+    polyConnectedB.draw();
+    // polyConnectedA.drawConstraints();
+
 	//Gondel Riesenrad
-	swingStiff.draw();
-	swingStiff.drawConstraints();
+	// swingStiff.draw();
+	// swingStiff.drawConstraints();
 
 	//Fläche für Komet
 	ground.draw();
