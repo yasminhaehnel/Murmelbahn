@@ -14,6 +14,7 @@ let pilzsound;
 let kometsound;
 let SoundPlatschen;
 let WasserfallSound;
+let Wasserfall;
 
 let mouse;
 let isDrag = false;
@@ -71,6 +72,7 @@ function preload() {
 	Sitzhinten = loadImage("Sitzhinten.png");
 	Sitzseite = loadImage("Sitzseite.png");
 	Waggons = loadImage("Waggons.png");
+	Wasserfall = loadImage ("Wasser1.png");
 }
 
 // das ist die Dimension des kompletten Levels
@@ -1054,7 +1056,7 @@ function setup() {
 				y: 490,
 				w: 100,
 				h: 30,
-				color: "red",
+				//color: "red",
 				trigger: (ball, block) => {
 					//Backgroundsound abspielen
 					WasserfallSound.play();
@@ -1078,7 +1080,7 @@ function setup() {
 				y: 500,
 				w: 50,
 				h: 30,
-				color: "red",
+				//color: "red",
 				trigger: (ball, block) => {
 					//Backgroundsound abspielen
 					SoundPlatschen.play();
@@ -1092,6 +1094,22 @@ function setup() {
 			}
 		)
 	);
+
+	///////////// Wasser
+	blocks.push(
+		new Block(
+			world,
+			{
+				x: 12000,
+				y: 100,
+				w: 60,
+				h: 60,
+				image: Wasserfall,
+				scale: 0.1,
+			 }
+		)
+	);
+
 
 	hgWolken = select("#sprite-foregroundWolken");
 	hgBerge = select("#sprite-background");
