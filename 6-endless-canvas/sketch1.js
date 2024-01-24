@@ -315,7 +315,7 @@ function setup() {
 
 				trigger: (ball, block) => {
 					Matter.Body.applyForce(ball.body, ball.body.position, {
-						x: 2,
+						x: 0.8,
 						y: 0.0,
 					}); //hier wird die Murmel geschubst
 					const velocityMultiplier = 2; // Du kannst den Multiplikator anpassen, um die Geschwindigkeit zu ändern
@@ -1471,5 +1471,5 @@ function draw() {
 
 	translate(off.x, 0);
 
-	// Engine.update(engine);
+	Engine.update(engine);
 }
