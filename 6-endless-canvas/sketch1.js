@@ -14,7 +14,11 @@ let pilzsound;
 let kometsound;
 let SoundPlatschen;
 let WasserfallSound;
-let Wasserfall;
+let Wasserfall1;
+let Wasserfall2;
+let Wasserfall3;
+let Wasserfall4;
+
 
 let mouse;
 let isDrag = false;
@@ -1087,20 +1091,124 @@ function setup() {
 		)
 	);
 
-	///////////// Wasser
-	blocks.push(
-		new Block(
+	// ///////////// Wasser
+	// blocks.push(
+	// 	new Block(
+	// 		world,
+	// 		{
+	// 			x: 13100,
+	// 			y: 100,
+	// 			w: 60,
+	// 			h: 60,
+	// 			image: Wasserfall,
+	// 			scale: 0.1,
+	// 		 }
+	// 	)
+	// );
+		//Plattform für Wasserfall 1
+		Wasserfall1 = new Block(
 			world,
 			{
-				x: 12000,
-				y: 100,
+				x: 12350,
+				y: 510,
 				w: 60,
 				h: 60,
+				//trigger: (ball, block) => {
+					//Backgroundsound abspielen
+					// pilzsound.play();
+				//},
+				//color: "blue",
+				//offset: { x: 0, y: -120 },
 				image: Wasserfall,
 				scale: 0.1,
-			 }
-		)
-	);
+			},
+			{ isStatic: true, isSensor: true,}
+		);
+	
+		blocks.push(Wasserfall1);
+		function update() {
+			blocks.forEach((block) => {
+				block.update();
+			});
+		}
+		//Plattform für Wasserfall   2
+		Wasserfall2 = new Block(
+			world,
+			{
+				x: 12400,
+				y: 510,
+				w: 60,
+				h: 60,
+				//trigger: (ball, block) => {
+					//Backgroundsound abspielen
+					// pilzsound.play();
+				//},
+				//color: "blue",
+				//offset: { x: 0, y: -120 },
+				image: Wasserfall,
+				scale: 0.07,
+			},
+			{ isStatic: true, isSensor: true,}
+		);
+	
+		blocks.push(Wasserfall2);
+		function update() {
+			blocks.forEach((block) => {
+				block.update();
+			});
+		}
+		//Plattform für Wasserfall   3
+		Wasserfall3 = new Block(
+			world,
+			{
+				x: 12450,
+				y: 510,
+				w: 60,
+				h: 60,
+				//trigger: (ball, block) => {
+					//Backgroundsound abspielen
+					// pilzsound.play();
+				//},
+				//color: "blue",
+				//offset: { x: 0, y: -120 },
+				image: Wasserfall,
+				scale: 0.08,
+			},
+			{ isStatic: true, isSensor: true,}
+		);
+		blocks.push(Wasserfall3);
+		function update() {
+			blocks.forEach((block) => {
+				block.update();
+			});
+		}
+
+		//Plattform für Wasserfall   4
+		Wasserfall4 = new Block(
+			world,
+			{
+				x: 12500,
+				y: 510,
+				w: 60,
+				h: 60,
+				//trigger: (ball, block) => {
+					//Backgroundsound abspielen
+					// pilzsound.play();
+				//},
+				//color: "blue",
+				//offset: { x: 0, y: -120 },
+				image: Wasserfall,
+				scale: 0.1,
+			},
+			{ isStatic: true, isSensor: true,}
+		);
+	
+		blocks.push(Wasserfall4);
+		function update() {
+			blocks.forEach((block) => {
+				block.update();
+			});
+		}
 
 
 	hgWolken = select("#sprite-foregroundWolken");
@@ -1165,6 +1273,10 @@ function drawSparkle(x, y) {
 }
 let lastPos = { x: 0, y: 0 };
 let ballonMove = { x: 0.1, y: 0.1 };
+let Wasserfall1Move = { x: 0.1, y: 0.1 };
+let Wasserfall2Move = { x: -0.09, y: -0.09 };
+let Wasserfall3Move = { x: 0.1, y: 0.1 };
+let Wasserfall4Move = { x: -0.09, y: -0.09 };
 
 function draw() {
 	clear();
@@ -1204,6 +1316,49 @@ function draw() {
 	}
 	ballon.body.position.x += ballonMove.x;
 	ballon.body.position.y += ballonMove.y;
+
+	//Wasserfall1 Bewegung 1
+	if (frameCount % 90 == 5) {
+		Wasserfall1Move.x = -Wasserfall1Move.x;
+	}
+	if (frameCount % 50 == 0) {
+		Wasserfall1Move.y = -Wasserfall1Move.y;
+	}
+	Wasserfall1.body.position.x += Wasserfall1Move.x;
+	Wasserfall1.body.position.y += Wasserfall1Move.y;
+
+
+	//Wasserfall Bewegung 2
+	if (frameCount % 90 == 5) {
+		Wasserfall2Move.x = -Wasserfall2Move.x;
+	}
+	if (frameCount % 50 == 0) {
+		Wasserfall2Move.y = -Wasserfall2Move.y;
+	}
+	Wasserfall2.body.position.x += Wasserfall2Move.x;
+	Wasserfall2.body.position.y += Wasserfall2Move.y;
+
+
+	//Wasserfall Bewegung 3
+	if (frameCount % 90 == 5) {
+		Wasserfall3Move.x = -Wasserfall3Move.x;
+	}
+	if (frameCount % 50 == 0) {
+		Wasserfall3Move.y = -Wasserfall3Move.y;
+	}
+	Wasserfall3.body.position.x += Wasserfall3Move.x;
+	Wasserfall3.body.position.y += Wasserfall3Move.y;
+
+	//Wasserfall Bewegung 4
+	if (frameCount % 90 == 5) {
+		Wasserfall4Move.x = -Wasserfall4Move.x;
+	}
+	if (frameCount % 50 == 0) {
+		Wasserfall4Move.y = -Wasserfall4Move.y;
+	}
+	Wasserfall4.body.position.x += Wasserfall4Move.x;
+	Wasserfall4.body.position.y += Wasserfall4Move.y;
+
 
 	// animate attracted blocks
 	blocks.forEach((block) => block.draw());
