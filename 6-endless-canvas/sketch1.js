@@ -339,12 +339,12 @@ function setup() {
 			world,
 			{
 				x: 3820,
-				y: 307,
+				y: 303,
 				w: 70,
 				h: 20,
 				//color: "red",
 				image: Waggons,
-				offset: { x: 0, y: -15 },
+				offset: { x: 0, y: -13 },
 			},
 			{
 				isStatic: true,
@@ -359,15 +359,35 @@ function setup() {
 			world,
 			{
 				x: 4500,
-				y: 321,
+				y: 313,
 				w: 70,
 				h: 20,
 				//color: "red",
 				image: Waggons,
-				offset: { x: 0, y: -20 },
+				offset: { x: 0, y: -17 },
 			},
 			{
 				isStatic: true,
+			}
+		)
+	);
+
+	//Waggon3 auf Achterbahn
+	blocks.push(
+		new Block(
+			world,
+			{
+				x: 9750,
+				y: 325,
+				w: 70,
+				h: 20,
+				//color: "red",
+				image: Waggons,
+				offset: { x: 0, y: -16 },
+			},
+			{
+				isStatic: true,
+				angle: Math.PI / 9,
 			}
 		)
 	);
