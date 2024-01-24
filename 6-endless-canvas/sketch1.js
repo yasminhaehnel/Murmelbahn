@@ -12,6 +12,7 @@ let backgroundSound;
 let glitzersound;
 let pilzsound;
 let kometsound;
+let SoundPlatschen;
 
 let mouse;
 let isDrag = false;
@@ -56,6 +57,7 @@ function preload() {
 	glitzersound = loadSound("Fairy Glitter.wav");
 	pilzsound = loadSound("jump sound.mp3");
 	kometsound = loadSound("Meteor Crash.mp3");
+	SoundPlatschen = loadSound("Splashing Water1.mp3");
 	Heißluftballon = loadImage("HeißluftballonMitSeil.png");
 	Mond = loadImage("Mond-groß.png");
 	Stern = loadImage("Stern.png");
@@ -734,7 +736,7 @@ function setup() {
 			h: 100,
 			trigger: (ball, block) => {
 				//Backgroundsound abspielen
-				pilzsound.play();
+				// pilzsound.play();
 			},
 			//color: "blue",
 			offset: { x: 0, y: -120 },
@@ -1011,6 +1013,30 @@ function setup() {
 				},
 			},
 			{ isStatic: true, isSensor: true }
+		)
+	);
+
+	//////////////////////////////////////////////////////////Sound für Wasserplatschen
+	blocks.push(
+		new Block(
+			world,
+			{
+				x: 12320,
+				y: 500,
+				w: 50,
+				h: 30,
+				//color: "red",
+				trigger: (ball, block) => {
+					//Backgroundsound abspielen
+					SoundPlatschen.play();
+				},
+
+				scale: 0.3,
+				offset: { x: 0, y: -80 },
+			},
+			{
+				isStatic: true,
+			}
 		)
 	);
 
