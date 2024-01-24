@@ -1154,7 +1154,7 @@ function setup() {
 			w: 60,
 			h: 60,
 			image: Wasserfall,
-			scale: 0.1,
+			scale: 0.12,
 		},
 		{ isStatic: true, isSensor: true }
 	);
@@ -1174,7 +1174,7 @@ function setup() {
 			w: 60,
 			h: 60,
 			image: Wasserfall,
-			scale: 0.07,
+			scale: 0.075,
 		},
 		{ isStatic: true, isSensor: true }
 	);
@@ -1194,7 +1194,7 @@ function setup() {
 			w: 60,
 			h: 60,
 			image: Wasserfall,
-			scale: 0.08,
+			scale: 0.082,
 		},
 		{ isStatic: true, isSensor: true }
 	);
@@ -1214,7 +1214,7 @@ function setup() {
 			w: 60,
 			h: 60,
 			image: Wasserfall,
-			scale: 0.1,
+			scale: 0.12,
 		},
 		{ isStatic: true, isSensor: true }
 	);
@@ -1289,7 +1289,7 @@ function drawSparkle(x, y) {
 let lastPos = { x: 0, y: 0 };
 let ballonMove = { x: 0.1, y: 0.1 };
 let Wasserfall1Move = { x: 0.1, y: 0.1 };
-let Wasserfall2Move = { x: -0.09, y: -0.09 };
+let Wasserfall2Move = { x: -0.1, y: -0.1 };
 let Wasserfall3Move = { x: 0.1, y: 0.1 };
 let Wasserfall4Move = { x: -0.09, y: -0.09 };
 
