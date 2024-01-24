@@ -185,6 +185,9 @@ function setup() {
 			},
 		},
 		{
+			xangle: 0.0,
+			frictionAir: 0.0,
+			friction: 0.0,
 			xlabel: "Murmel",
 		}
 	);
@@ -1111,9 +1114,9 @@ function draw() {
 	// position canvas and translate coordinates
 	scrollEndless(murmel.body.position);
 
-	//Komet fällt gerade
-	Matter.Body.setAngle(komet.body, 0);
-	komet.draw();
+	// //Komet fällt gerade
+	// Matter.Body.setAngle(komet.body, 0);
+	// komet.draw();
 
 	let newX = murmel.body.position.x + random(-25, 25); //Verschiebung in x-Richtung
 	let newY = murmel.body.position.y + random(-40, 30); //Verschiebung in y-Richtung
