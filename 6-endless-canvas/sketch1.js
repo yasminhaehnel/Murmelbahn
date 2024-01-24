@@ -100,7 +100,7 @@ function setup() {
 		{ x: 235, y: 100, r: 40, image: Mond },
 		{
 			label: "Murmel",
-			density: 0.007,
+			density: 0.008,
 			restitution: 0.25,
 			friction: 0.5,
 			frictionAir: 0.0,
@@ -347,6 +347,7 @@ function setup() {
 				h: 20,
 				//color: "red",
 				image: Waggons,
+				scale: 0.5,
 				offset: { x: 0, y: -13 },
 			},
 			{
@@ -367,6 +368,7 @@ function setup() {
 				h: 20,
 				//color: "red",
 				image: Waggons,
+				scale: 0.5,
 				offset: { x: 0, y: -17 },
 			},
 			{
@@ -386,6 +388,7 @@ function setup() {
 				h: 20,
 				//color: "red",
 				image: Waggons,
+				scale: 0.5,
 				offset: { x: 0, y: -16 },
 			},
 			{
