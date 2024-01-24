@@ -19,7 +19,6 @@ let Wasserfall2;
 let Wasserfall3;
 let Wasserfall4;
 
-
 let mouse;
 let isDrag = false;
 // an array to contain all the blocks created
@@ -31,6 +30,10 @@ let ground;
 let riesenrad;
 let angle = 0;
 let swingStiff;
+let polyConnectedA;
+let polyConnectedB;
+let radius = 250;
+let gondel;
 
 let trampolinA;
 let trampolinB;
@@ -58,9 +61,6 @@ let hgWolken;
 let hgBerge;
 let vg;
 
-let polyConnectedA;
-let polyConnectedB;
-
 function preload() {
 	backgroundSound = loadSound("Background-Sound-Murmelbahn.mp3");
 	glitzersound = loadSound("Fairy Glitter.wav");
@@ -79,7 +79,7 @@ function preload() {
 	Sitzhinten = loadImage("Sitzhinten.png");
 	Sitzseite = loadImage("Sitzseite.png");
 	Waggons = loadImage("Waggons.png");
-	Wasserfall = loadImage ("Wasser1.png");
+	Wasserfall = loadImage("Wasser1.png");
 }
 
 // das ist die Dimension des kompletten Levels
@@ -206,21 +206,57 @@ function setup() {
 	blocks.push(komet);
 
 	// Riesenrad
-	riesenrad = new Ball(
-		world,
-		{ x: 1300, y: 300, r: 250, stroke: "white", strokeWeight: 2.5 },
-		{ isStatic: true, angle: angle, isSensor: true }
-	);
+	// riesenrad = new Ball(
+	// 	world,
+	// 	{ x: 1300, y: 300, r: radius, stroke: "red", strokeWeight: 2.5 },
+	// 	{ isStatic: false, isSensor: true }
+	// );
+
+	// blocks.push(riesenrad);
+	// riesenrad.constrainTo(null, {
+	// 	pointB: { x: 1300, y: 300 },
+	// 	stiffness: 1.0,
+	// 	draw: true,
+	// 	color: "yellow",
+	// });
 
 	/////////////////
-	// Gondel Riesenrad
-	polyConnectedA = new Ball(world,
-		{ x: 1300, y: 300, r: 250, stroke: "white", strokeWeight: 2.5 },
-		{ isStatic: true, angle: angle, isSensor: true }
+	//Riesenrad
+	riesenrad = new Ball(
+		world,
+		{ x: 1300, y: 300, r: radius, stroke: "white", strokeWeight: 2.5 },
+		{ isStatic: false, isSensor: true }
 	);
-	  polyConnectedB = new Ball(world, {x: 1500, y: 300, s: 0, r: 20, color: 'white'}, {isStatic: false});
-	//   polyConnectedB = new Ball(world, {x: Math.sin(0 * PI / 4) * 250, y: Math.sin(0 * PI/ 4), s: 0, r: 20, color: 'white'});
-	  polyConnectedB.constrainTo(polyConnectedA, { pointA: {x:0, y:-20}, pointB: {x:200, y:-20}, length: 10, stiffness: 0.0, draw: true });
+
+	blocks.push(riesenrad);
+	riesenrad.constrainTo(null, {
+		pointB: { x: 1300, y: 300 },
+		stiffness: 1.0,
+		draw: true,
+		//color: "yellow",
+	});
+
+	//////Gondeln
+	cnt = 8;
+	for (let i = 0; i < cnt; i++) {
+		let x = (radius - 10) * Math.sin(((2 * PI) / cnt) * i);
+		let y = (radius - 10) * Math.cos(((2 * PI) / cnt) * i);
+
+		gondel = new Block(
+			world,
+			{ x: 1300 + x, y: 350 + y, w: 50, h: 30, color: "white" },
+			{ isStatic: false }
+		);
+		blocks.push(gondel);
+
+		gondel.constrainTo(riesenrad, {
+			pointA: { x: 0, y: -10 },
+			pointB: { x: x, y: y },
+			// length: 50,
+			stiffness: 0.0,
+			draw: true,
+		});
+	}
 	/////////////////
 
 	// Stern1, hier wird die Murmel geschubst und erstellt
@@ -1105,111 +1141,110 @@ function setup() {
 	// 		 }
 	// 	)
 	// );
-		//Plattform für Wasserfall 1
-		Wasserfall1 = new Block(
-			world,
-			{
-				x: 12350,
-				y: 510,
-				w: 60,
-				h: 60,
-				//trigger: (ball, block) => {
-					//Backgroundsound abspielen
-					// pilzsound.play();
-				//},
-				//color: "blue",
-				//offset: { x: 0, y: -120 },
-				image: Wasserfall,
-				scale: 0.1,
-			},
-			{ isStatic: true, isSensor: true,}
-		);
-	
-		blocks.push(Wasserfall1);
-		function update() {
-			blocks.forEach((block) => {
-				block.update();
-			});
-		}
-		//Plattform für Wasserfall   2
-		Wasserfall2 = new Block(
-			world,
-			{
-				x: 12400,
-				y: 510,
-				w: 60,
-				h: 60,
-				//trigger: (ball, block) => {
-					//Backgroundsound abspielen
-					// pilzsound.play();
-				//},
-				//color: "blue",
-				//offset: { x: 0, y: -120 },
-				image: Wasserfall,
-				scale: 0.07,
-			},
-			{ isStatic: true, isSensor: true,}
-		);
-	
-		blocks.push(Wasserfall2);
-		function update() {
-			blocks.forEach((block) => {
-				block.update();
-			});
-		}
-		//Plattform für Wasserfall   3
-		Wasserfall3 = new Block(
-			world,
-			{
-				x: 12450,
-				y: 510,
-				w: 60,
-				h: 60,
-				//trigger: (ball, block) => {
-					//Backgroundsound abspielen
-					// pilzsound.play();
-				//},
-				//color: "blue",
-				//offset: { x: 0, y: -120 },
-				image: Wasserfall,
-				scale: 0.08,
-			},
-			{ isStatic: true, isSensor: true,}
-		);
-		blocks.push(Wasserfall3);
-		function update() {
-			blocks.forEach((block) => {
-				block.update();
-			});
-		}
+	//Plattform für Wasserfall 1
+	Wasserfall1 = new Block(
+		world,
+		{
+			x: 12350,
+			y: 510,
+			w: 60,
+			h: 60,
+			//trigger: (ball, block) => {
+			//Backgroundsound abspielen
+			// pilzsound.play();
+			//},
+			//color: "blue",
+			//offset: { x: 0, y: -120 },
+			image: Wasserfall,
+			scale: 0.1,
+		},
+		{ isStatic: true, isSensor: true }
+	);
 
-		//Plattform für Wasserfall   4
-		Wasserfall4 = new Block(
-			world,
-			{
-				x: 12500,
-				y: 510,
-				w: 60,
-				h: 60,
-				//trigger: (ball, block) => {
-					//Backgroundsound abspielen
-					// pilzsound.play();
-				//},
-				//color: "blue",
-				//offset: { x: 0, y: -120 },
-				image: Wasserfall,
-				scale: 0.1,
-			},
-			{ isStatic: true, isSensor: true,}
-		);
-	
-		blocks.push(Wasserfall4);
-		function update() {
-			blocks.forEach((block) => {
-				block.update();
-			});
-		}
+	blocks.push(Wasserfall1);
+	function update() {
+		blocks.forEach((block) => {
+			block.update();
+		});
+	}
+	//Plattform für Wasserfall   2
+	Wasserfall2 = new Block(
+		world,
+		{
+			x: 12400,
+			y: 510,
+			w: 60,
+			h: 60,
+			//trigger: (ball, block) => {
+			//Backgroundsound abspielen
+			// pilzsound.play();
+			//},
+			//color: "blue",
+			//offset: { x: 0, y: -120 },
+			image: Wasserfall,
+			scale: 0.07,
+		},
+		{ isStatic: true, isSensor: true }
+	);
 
+	blocks.push(Wasserfall2);
+	function update() {
+		blocks.forEach((block) => {
+			block.update();
+		});
+	}
+	//Plattform für Wasserfall   3
+	Wasserfall3 = new Block(
+		world,
+		{
+			x: 12450,
+			y: 510,
+			w: 60,
+			h: 60,
+			//trigger: (ball, block) => {
+			//Backgroundsound abspielen
+			// pilzsound.play();
+			//},
+			//color: "blue",
+			//offset: { x: 0, y: -120 },
+			image: Wasserfall,
+			scale: 0.08,
+		},
+		{ isStatic: true, isSensor: true }
+	);
+	blocks.push(Wasserfall3);
+	function update() {
+		blocks.forEach((block) => {
+			block.update();
+		});
+	}
+
+	//Plattform für Wasserfall   4
+	Wasserfall4 = new Block(
+		world,
+		{
+			x: 12500,
+			y: 510,
+			w: 60,
+			h: 60,
+			//trigger: (ball, block) => {
+			//Backgroundsound abspielen
+			// pilzsound.play();
+			//},
+			//color: "blue",
+			//offset: { x: 0, y: -120 },
+			image: Wasserfall,
+			scale: 0.1,
+		},
+		{ isStatic: true, isSensor: true }
+	);
+
+	blocks.push(Wasserfall4);
+	function update() {
+		blocks.forEach((block) => {
+			block.update();
+		});
+	}
 
 	hgWolken = select("#sprite-foregroundWolken");
 	hgBerge = select("#sprite-background");
@@ -1327,7 +1362,6 @@ function draw() {
 	Wasserfall1.body.position.x += Wasserfall1Move.x;
 	Wasserfall1.body.position.y += Wasserfall1Move.y;
 
-
 	//Wasserfall Bewegung 2
 	if (frameCount % 90 == 5) {
 		Wasserfall2Move.x = -Wasserfall2Move.x;
@@ -1337,7 +1371,6 @@ function draw() {
 	}
 	Wasserfall2.body.position.x += Wasserfall2Move.x;
 	Wasserfall2.body.position.y += Wasserfall2Move.y;
-
 
 	//Wasserfall Bewegung 3
 	if (frameCount % 90 == 5) {
@@ -1358,7 +1391,6 @@ function draw() {
 	}
 	Wasserfall4.body.position.x += Wasserfall4Move.x;
 	Wasserfall4.body.position.y += Wasserfall4Move.y;
-
 
 	// animate attracted blocks
 	blocks.forEach((block) => block.draw());
@@ -1382,12 +1414,12 @@ function draw() {
 	swingStiff4.draw();
 
 	//Riesenrad
-	Matter.Body.setAngle(polyConnectedA.body, angle);
-    Matter.Body.setAngularVelocity(polyConnectedA.body, 0.15);
-    angle += 0.01;
-    polyConnectedA.draw();
-    polyConnectedB.draw();
-    // polyConnectedA.drawConstraints();
+	Matter.Body.setAngle(riesenrad.body, angle);
+	// Matter.Body.setAngularVelocity(riesenrad.body, 0.15);
+	angle += 0.01;
+	riesenrad.draw();
+	gondel.draw();
+	// polyConnectedA.drawConstraints();
 
 	//Gondel Riesenrad
 	// swingStiff.draw();
@@ -1402,5 +1434,5 @@ function draw() {
 
 	translate(off.x, 0);
 
-	Engine.update(engine);
+	// Engine.update(engine);
 }
