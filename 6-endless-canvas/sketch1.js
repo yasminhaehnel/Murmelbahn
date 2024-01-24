@@ -82,6 +82,7 @@ function preload() {
 	Waggons = loadImage("Waggons.png");
 	Wasserfall = loadImage("Wasser1.png");
 	Radbild = loadImage("RadRiesenrad.png");
+	GondelRad = loadImage("Gondel.png");
 }
 
 // das ist die Dimension des kompletten Levels
@@ -207,22 +208,7 @@ function setup() {
 	);
 	blocks.push(komet);
 
-	// Riesenrad
-	// riesenrad = new Ball(
-	// 	world,
-	// 	{ x: 1300, y: 300, r: radius, stroke: "red", strokeWeight: 2.5 },
-	// 	{ isStatic: false, isSensor: true }
-	// );
-
-	// blocks.push(riesenrad);
-	// riesenrad.constrainTo(null, {
-	// 	pointB: { x: 1300, y: 300 },
-	// 	stiffness: 1.0,
-	// 	draw: true,
-	// 	color: "yellow",
-	// });
-
-	/////////////////
+	//////////////////////////////////////////////////////////////////
 	//Riesenrad
 	riesenrad = new Ball(
 		world,
@@ -230,8 +216,8 @@ function setup() {
 			x: 10280,
 			y: 250,
 			r: radius,
-			stroke: "white",
-			strokeWeight: 2.5,
+			//stroke: "white",
+			//strokeWeight: 2.5,
 			image: Radbild,
 			scale: 0.65,
 		},
@@ -254,7 +240,15 @@ function setup() {
 
 		gondel = new Block(
 			world,
-			{ x: 10280 + x, y: 350 + y, w: 50, h: 50, color: "white" },
+			{
+				x: 10280 + x,
+				y: 350 + y,
+				w: 60,
+				h: 60,
+				//color: "white",
+				image: GondelRad,
+				scale: 0.3,
+			},
 			{ isStatic: false }
 		);
 		blocks.push(gondel);
@@ -566,6 +560,38 @@ function setup() {
 			}
 		)
 	);
+	//Wand Ballon
+	blocks.push(
+		new Block(
+			world,
+			{
+				x: 8340,
+				y: 480,
+				w: 10,
+				h: 150,
+				//color: "red",
+			},
+			{
+				isStatic: true,
+			}
+		)
+	);
+	//Wand2 Ballon
+	blocks.push(
+		new Block(
+			world,
+			{
+				x: 8655,
+				y: 490,
+				w: 10,
+				h: 150,
+				//color: "red",
+			},
+			{
+				isStatic: true,
+			}
+		)
+	);
 
 	//Wand Ende
 	blocks.push(
@@ -807,7 +833,7 @@ function setup() {
 			x: 8500,
 			y: 540,
 			w: 300,
-			h: 100,
+			h: 20,
 			trigger: (ball, block) => {
 				//Backgroundsound abspielen
 				// pilzsound.play();
