@@ -34,6 +34,7 @@ let polyConnectedA;
 let polyConnectedB;
 let radius = 200;
 let gondel;
+let Radbild;
 
 let trampolinA;
 let trampolinB;
@@ -80,6 +81,7 @@ function preload() {
 	Sitzseite = loadImage("Sitzseite.png");
 	Waggons = loadImage("Waggons.png");
 	Wasserfall = loadImage("Wasser1.png");
+	Radbild = loadImage("RadRiesenrad.png");
 }
 
 // das ist die Dimension des kompletten Levels
@@ -224,7 +226,15 @@ function setup() {
 	//Riesenrad
 	riesenrad = new Ball(
 		world,
-		{ x: 10280, y: 250, r: radius, stroke: "white", strokeWeight: 2.5 },
+		{
+			x: 10280,
+			y: 250,
+			r: radius,
+			stroke: "white",
+			strokeWeight: 2.5,
+			image: Radbild,
+			scale: 0.65,
+		},
 		{ isStatic: false, isSensor: true }
 	);
 
