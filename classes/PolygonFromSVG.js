@@ -51,58 +51,44 @@ let block = new PolygonFromSVG(world, attributes, options)
 class PolygonFromSVG extends Block {
 	constructor(world, attributes, options) {
 		super(world, attributes, options);
+		this.attributes.sample = this.attributes.sample || 10;
 	}
 
 	addBody() {
-		if (this.attributes.fromPath) {
-			// use a path provided directly
-			let vertices = Matter.Svg.pathToVertices(
-				this.attributes.fromPath,
-				30
-			);
-			this.addBodyVertices(vertices);
+		if (this.attributes.fromVertices) {
+			// use list of vertices/points
+			this.addBodyVertices(this.attributes.fromVertices)
 		} else {
-			if (this.attributes.fromId) {
-				// use a path of SVG embedded in current HTML page
-				let path = document.getElementById(this.attributes.fromId);
-				if (null != path) {
-					let vertices = Matter.Svg.pathToVertices(path, 10);
-					this.addBodyVertices(vertices);
-				}
+			if (this.attributes.fromPath) {
+				// use a path provided directly
+				let vertices = Matter.Svg.pathToVertices(this.attributes.fromPath, this.attributes.sample);
+				this.addBodyVertices(vertices)
 			} else {
-				// use a path in separate SVG file
-				let that = this;
-				httpGet(
-					this.attributes.fromFile,
-					"text",
-					false,
-					function (response) {
-						const parser = new DOMParser();
-						const svgDoc = parser.parseFromString(
-							response,
-							"image/svg+xml"
-						);
-						const path = svgDoc.querySelector("path");
-						let vertices = Matter.Svg.pathToVertices(path, 10);
-						that.addBodyVertices(vertices);
-						Matter.World.add(that.world, [that.body]);
+				if (this.attributes.fromId) {
+					// use a path of SVG embedded in current HTML page
+					let path = document.getElementById(this.attributes.fromId);
+					if (null != path) {
+						let vertices = Matter.Svg.pathToVertices(path, this.attributes.sample);
+						this.addBodyVertices(vertices)
 					}
-				);
+				} else {
+					// use a path in separate SVG file
+					let that = this;
+					httpGet(this.attributes.fromFile, "text", false, function (response) {
+						const parser = new DOMParser();
+						const svgDoc = parser.parseFromString(response, "image/svg+xml");
+						const path = svgDoc.querySelector("path");
+						let vertices = Matter.Svg.pathToVertices(path, that.attributes.sample);
+						that.addBodyVertices(vertices)
+						Matter.World.add(that.world, [that.body]);
+					});
+				}
 			}
 		}
 	}
 
 	addBodyVertices(vertices) {
-		this.body = Matter.Bodies.fromVertices(
-			0,
-			0,
-			Matter.Vertices.scale(
-				vertices,
-				this.attributes.scale,
-				this.attributes.scale
-			),
-			this.options
-		);
+		this.body = Matter.Bodies.fromVertices(0, 0, Matter.Vertices.scale(vertices, this.attributes.scale, this.attributes.scale), this.options);
 		if (this.body) {
 			if (this.attributes.x !== undefined) {
 				Matter.Body.setPosition(this.body, this.attributes);
@@ -111,23 +97,12 @@ class PolygonFromSVG extends Block {
 			}
 			if (this.attributes.image) {
 				this.offset = {
-					x:
-						this.offset.x +
-						(this.attributes.image.width / 2) *
-							this.attributes.scale -
-						(this.body.position.x - this.body.bounds.min.x),
-					y:
-						this.offset.y +
-						(this.attributes.image.height / 2) *
-							this.attributes.scale -
-						(this.body.position.y - this.body.bounds.min.y),
-				};
+					x: this.offset.x + (this.attributes.image.width / 2) * this.attributes.scale - (this.body.position.x - this.body.bounds.min.x),
+					y: this.offset.y + (this.attributes.image.height / 2) * this.attributes.scale - (this.body.position.y - this.body.bounds.min.y)
+				}
 			}
 		} else {
-			console.log(
-				"Cound not construct body for path: ",
-				this.attributes.fromPath
-			);
+			console.log('Cound not construct body for path: ', this.attributes.fromPath)
 		}
 	}
 
@@ -140,9 +115,6 @@ class PolygonFromSVG extends Block {
 			max.x = max.x < v.x ? v.x : max.x;
 			max.y = max.y < v.y ? v.y : max.y;
 		});
-		return {
-			x: min.x + (this.body.position.x - this.body.bounds.min.x),
-			y: min.y + (this.body.position.y - this.body.bounds.min.y),
-		};
+		return { x: min.x + (this.body.position.x - this.body.bounds.min.x), y: min.y + (this.body.position.y - this.body.bounds.min.y) }
 	}
 }
