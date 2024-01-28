@@ -55,6 +55,8 @@ let Heißluftballon;
 let Mond;
 let Stern;
 let Komet;
+let Wasserspritzer;
+
 let sparkleTrail = [];
 let swarmHistory = [];
 
@@ -83,6 +85,7 @@ function preload() {
 	Wasserfall = loadImage("Wasser1.png");
 	Radbild = loadImage("RadRiesenrad.png");
 	GondelRad = loadImage("Gondel.png");
+	Wasserspritzer = loadImage("Wasserspritzer.png");
 }
 
 // das ist die Dimension des kompletten Levels
@@ -207,6 +210,45 @@ function setup() {
 		}
 	);
 	blocks.push(komet);
+
+	//////////////////////////////Wasserspritzer
+	Wasserspritzer = new Ball(
+		world,
+		{
+			x: 12500,
+			y: 400,
+			r: 30,
+			//color: "blue",
+			image: Wasserspritzer,
+			scale: 0.3,
+
+			trigger: (ball, block) => {
+				Matter.Body.applyForce(ball.body, ball.body.position, {
+					x: -0.15,
+					y: 0.0,
+				});
+				Matter.Body.applyForce(block.body, block.body.position, {
+					x: 0.1,
+					y: -0.5,
+				});
+				setTimeout(() => {
+					console.log("removed", blocks.length);
+					blocks = blocks.filter((block) => block != Wasserspritzer);
+					Matter.World.remove(world, block.body);
+					console.log("removed", blocks.length);
+				}, 1000);
+			},
+		},
+		{
+			xangle: 0.0,
+			frictionAir: 0.1,
+			friction: 0.0,
+			xlabel: "Murmel",
+			//isStatic: true,
+		}
+	);
+	blocks.push(Wasserspritzer);
+	//////////////////////
 
 	//////////////////////////////////////////////////////////////////
 	//Riesenrad
