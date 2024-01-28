@@ -71,6 +71,9 @@ function preload() {
 	kometsound = loadSound("Meteor Crash.mp3");
 	SoundPlatschen = loadSound("Splashing Water1.mp3");
 	WasserfallSound = loadSound("WasserfallSound.mp3");
+	KarusellSound = loadSound("Kette.wav");
+	HeißluftballonSound = loadSound("Heißluftballonrassel.wav");
+	RiesenradSound = loadSound("Riesenradsound.wav");
 
 	Heißluftballon = loadImage("HeißluftballonMitSeil.png");
 	Mond = loadImage("Mond-groß.png");
@@ -82,10 +85,10 @@ function preload() {
 	Sitzhinten = loadImage("Sitzhinten.png");
 	Sitzseite = loadImage("Sitzseite.png");
 	Waggons = loadImage("Waggons.png");
+	Wasserspritzer = loadImage("Wasserspritzer.png");
 	Wasserfall = loadImage("Wasser1.png");
 	Radbild = loadImage("RadRiesenrad.png");
 	GondelRad = loadImage("Gondel.png");
-	Wasserspritzer = loadImage("Wasserspritzer.png");
 }
 
 // das ist die Dimension des kompletten Levels
@@ -220,7 +223,7 @@ function setup() {
 			r: 30,
 			//color: "blue",
 			image: Wasserspritzer,
-			scale: 0.3,
+			scale: 0.2,
 
 			trigger: (ball, block) => {
 				Matter.Body.applyForce(ball.body, ball.body.position, {
@@ -229,7 +232,7 @@ function setup() {
 				});
 				Matter.Body.applyForce(block.body, block.body.position, {
 					x: 0.1,
-					y: -0.5,
+					y: -0.35,
 				});
 				setTimeout(() => {
 					console.log("removed", blocks.length);
@@ -290,6 +293,10 @@ function setup() {
 				//color: "white",
 				image: GondelRad,
 				scale: 0.3,
+				trigger: (ball, block) => {
+					//Backgroundsound abspielen
+					RiesenradSound.play();
+				},
 			},
 			{ isStatic: false }
 		);
@@ -928,7 +935,7 @@ function setup() {
 			h: 20,
 			trigger: (ball, block) => {
 				//Backgroundsound abspielen
-				// pilzsound.play();
+				HeißluftballonSound.play();
 			},
 			//color: "blue",
 			offset: { x: 0, y: -90 },
@@ -956,6 +963,10 @@ function setup() {
 		image: Karusellschaukel,
 		offset: { x: 0, y: -10 },
 		scale: 1.06,
+		trigger: (ball, block) => {
+			//Backgroundsound abspielen
+			KarusellSound.play();
+		},
 	});
 	swingStiff.constrainTo(null, {
 		pointA: { x: -48, y: 0 },
@@ -984,6 +995,10 @@ function setup() {
 		image: Sitzseite,
 		offset: { x: 5, y: -10 },
 		scale: 1.1,
+		trigger: (ball, block) => {
+			//Backgroundsound abspielen
+			KarusellSound.play();
+		},
 	});
 	swingStiff2.constrainTo(null, {
 		pointA: { x: -40, y: 0 },
@@ -1012,6 +1027,10 @@ function setup() {
 		image: Sitzseite,
 		offset: { x: 5, y: -10 },
 		scale: 1.06,
+		trigger: (ball, block) => {
+			//Backgroundsound abspielen
+			KarusellSound.play();
+		},
 	});
 	swingStiff3.constrainTo(null, {
 		pointA: { x: -40, y: 0 },
@@ -1040,6 +1059,10 @@ function setup() {
 		image: Sitzhinten,
 		offset: { x: 0, y: -10 },
 		scale: 1.06,
+		trigger: (ball, block) => {
+			//Backgroundsound abspielen
+			KarusellSound.play();
+		},
 	});
 	swingStiff4.constrainTo(null, {
 		pointA: { x: -48, y: 0 },
