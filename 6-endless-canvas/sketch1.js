@@ -229,7 +229,7 @@ function setup() {
 		pointB: { x: 10280, y: 250 },
 		stiffness: 1.0,
 		draw: true,
-		//color: "yellow",
+		color: "yellow",
 	});
 
 	//////Gondeln
@@ -243,8 +243,8 @@ function setup() {
 			{
 				x: 10280 + x,
 				y: 350 + y,
-				w: 55,
-				h: 55,
+				w: 60,
+				h: 60,
 				//color: "white",
 				image: GondelRad,
 				scale: 0.3,
@@ -259,7 +259,7 @@ function setup() {
 			length: 10,
 			stiffness: 1.0,
 			damping: 0.9,
-			draw: true,
+			draw: false,
 		});
 	}
 	/////////////////
