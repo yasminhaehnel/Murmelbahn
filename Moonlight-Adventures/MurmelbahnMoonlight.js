@@ -19,7 +19,7 @@ let Wasserfall2;
 let Wasserfall3;
 let Wasserfall4;
 
-let mouse;
+//let mouse;
 let isDrag = false;
 // an array to contain all the blocks created
 let blocks = [];
@@ -1082,8 +1082,8 @@ function setup() {
 	});
 	/////////////////////////////////////////////////////////////////////////
 
-	// add a mouse so that we can manipulate Matter objects
-	mouse = new Mouse(engine, canvas, { stroke: "blue", strokeWeight: 3 });
+	// // add a mouse so that we can manipulate Matter objects
+	// mouse = new Mouse(engine, canvas, { stroke: "blue", strokeWeight: 3 });
 
 	// process collisions - check whether block "Murmel" hits another Block
 	Events.on(engine, "collisionStart", function (event) {
@@ -1369,7 +1369,7 @@ function scrollEndless(point) {
 	// verschiebt den ganzen Viewport
 	window.scrollTo(off.x, off.y);
 	// Matter mouse needs the offset as well
-	mouse.setOffset(off);
+	//mouse.setOffset(off);
 }
 
 function keyPressed(event) {
@@ -1489,7 +1489,7 @@ function draw() {
 
 	// animate attracted blocks
 	blocks.forEach((block) => block.draw());
-	mouse.draw();
+	//mouse.draw();
 	trampolinA.draw();
 	trampolinB.draw();
 	trampolinC.draw();
