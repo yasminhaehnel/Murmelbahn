@@ -73,9 +73,9 @@ function preload() {
 	WasserfallSound = loadSound("WasserfallSound.mp3");
 	KarusellSound = loadSound("Kette.wav");
 	HeißluftballonSound = loadSound("Heißluftballonrassel.wav");
-	RiesenradSound = loadSound("Riesenradsound.wav");
+	RiesenradSound = loadSound("Riesenradgondel.wav");
 
-	Heißluftballon = loadImage("HeißluftballonMitSeil.png");
+	Heißluftballon = loadImage("Heißluftballon.png");
 	Mond = loadImage("Mond-groß.png");
 	Stern = loadImage("Stern.png");
 	Pilz1 = loadImage("Pilz1.png");
@@ -274,7 +274,7 @@ function setup() {
 		pointB: { x: 10280, y: 250 },
 		stiffness: 1.0,
 		draw: true,
-		color: "yellow",
+		//color: "yellow",
 	});
 
 	//////Gondeln
@@ -957,7 +957,7 @@ function setup() {
 	swingStiff = new Block(world, {
 		x: 4870,
 		y: 185,
-		w: 100,
+		w: 150,
 		h: 40,
 		//color: "white",
 		image: Karusellschaukel,
@@ -989,7 +989,7 @@ function setup() {
 	swingStiff2 = new Block(world, {
 		x: 5040,
 		y: 185,
-		w: 80,
+		w: 150,
 		h: 40,
 		//color: "white",
 		image: Sitzseite,
@@ -1003,7 +1003,7 @@ function setup() {
 	swingStiff2.constrainTo(null, {
 		pointA: { x: -40, y: 0 },
 		length: 320,
-		stiffness: 0.05,
+		stiffness: 0.06,
 		damping: 0.2,
 		color: "#14A39A",
 		draw: true,
@@ -1011,7 +1011,7 @@ function setup() {
 	swingStiff2.constrainTo(null, {
 		pointA: { x: 40, y: 0 },
 		length: 320,
-		stiffness: 0.05,
+		stiffness: 0.06,
 		damping: 0.2,
 		color: "#14A39A",
 		draw: true,
@@ -1021,7 +1021,7 @@ function setup() {
 	swingStiff3 = new Block(world, {
 		x: 5210,
 		y: 185,
-		w: 80,
+		w: 180,
 		h: 40,
 		//color: "white",
 		image: Sitzseite,
@@ -1035,7 +1035,7 @@ function setup() {
 	swingStiff3.constrainTo(null, {
 		pointA: { x: -40, y: 0 },
 		length: 320,
-		stiffness: 0.05,
+		stiffness: 0.06,
 		damping: 0.2,
 		color: "#14A39A",
 		draw: true,
@@ -1043,7 +1043,7 @@ function setup() {
 	swingStiff3.constrainTo(null, {
 		pointA: { x: 40, y: 0 },
 		length: 320,
-		stiffness: 0.05,
+		stiffness: 0.06,
 		damping: 0.2,
 		color: "#14A39A",
 		draw: true,
@@ -1053,7 +1053,7 @@ function setup() {
 	swingStiff4 = new Block(world, {
 		x: 5380,
 		y: 185,
-		w: 100,
+		w: 180,
 		h: 40,
 		//color: "white",
 		image: Sitzhinten,
@@ -1067,7 +1067,7 @@ function setup() {
 	swingStiff4.constrainTo(null, {
 		pointA: { x: -48, y: 0 },
 		length: 250,
-		stiffness: 0.05,
+		stiffness: 0.06,
 		damping: 0.2,
 		color: "#14A39A",
 		draw: true,
@@ -1075,7 +1075,7 @@ function setup() {
 	swingStiff4.constrainTo(null, {
 		pointA: { x: 48, y: 0 },
 		length: 250,
-		stiffness: 0.05,
+		stiffness: 0.06,
 		damping: 0.2,
 		color: "#14A39A",
 		draw: true,
